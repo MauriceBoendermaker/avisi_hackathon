@@ -58,7 +58,7 @@ class Docent
 	{
 		// if gebruikersrechten is an integer, get gebruikersrechten from database
 		if (is_int($this->gebruikersrechten)) {
-			$db = new Database("localhost", "root", "", "LearnFlow", null);
+			$db = new Database("localhost", "root", "", "learnflow", null);
 			$this->gebruikersrechten = $db->getGebruikersrechtByID($this->gebruikersrechten);
 		}
 		return $this->gebruikersrechten;
