@@ -246,10 +246,10 @@ class Database
         return new Docent($row["ID"], $row["Naam"], $row["Email"], $row["Telefoon"], $row["Wachtwoord"], $this->getGebruikersrechtByID($row["FKgebruikersrechtenID"]), $row["Gewijzigd"]);
     }
 
-    public function getDocentbyEmail($email)
+    public function getDocentByEmail($email)
 	{
 		$this->connect();
-		$result = $this->db->query("SELECT * FROM Docenten WHERE Email = '$email'");
+		$result = $this->db->query("SELECT * FROM docenten WHERE Email = '$email'");
 		$row = $result->fetch_assoc();
 		if ($result->num_rows == 0) {
 			return null;
