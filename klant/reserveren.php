@@ -1,7 +1,7 @@
-<?php include "./include/nav_klant.php"; ?>
+<?php include "./include/nav_docent.php"; ?>
 <?php
 $db = new database\Database($db_host, $db_user, $db_pass, $db_name, $db_port);
-//$boekingen = $db->getBoekingenByKlantID(0); //$_SESSION['klant_id']
+//$boekingen = $db->getBoekingenByDocentID(0); //$_SESSION['docent_id']
 if (isset($_POST['submit'])) {
     // verify form data
     $startdatum = $_POST['startdatum'];

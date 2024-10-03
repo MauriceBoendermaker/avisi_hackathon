@@ -1,9 +1,9 @@
-<?php include "./include/nav_klant.php"; ?>
+<?php include "./include/nav_docent.php"; ?>
 <?php
 $db = new database\Database($db_host, $db_user, $db_pass, $db_name, $db_port);
-$klanten = $db->getKlanten();
+$docenten = $db->getDocenten();
 
-// klanten
+// docenten
 // ID INT
 // Naam VARCHAR(50)
 // Email VARCHAR(100)
@@ -38,7 +38,7 @@ if (isset($_POST['save'])) {
 }
 
 if (isset($_POST['delete']) && isset($id)) {
-	$db->deleteKlant($id);
+	$db->deleteDocent($id);
 	session_destroy();
 	home();
 }

@@ -3,7 +3,7 @@
 
 namespace database;
 
-// herbergen
+// studenten
 // ID INT
 // Naam VARCHAR(50)
 // Adres VARCHAR(50)

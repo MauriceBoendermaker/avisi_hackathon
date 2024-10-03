@@ -4,7 +4,7 @@ namespace database;
 
 require_once 'boeking.php';
 require_once 'student.php';
-require_once 'klant.php';
+require_once 'docent.php';
 require_once 'overnachting.php';
 require_once 'pauzeplaats.php';
 require_once 'restaurant.php';
@@ -217,7 +217,7 @@ class Database
         $result = $this->db->query("DELETE FROM studenten WHERE ID = $id");
     }
 
-    // klanten
+    // docent
     // ID INT
     // Naam VARCHAR(50)
     // Email VARCHAR(100)
@@ -226,24 +226,24 @@ class Database
 	// FKgebruikersrechtenID INT (foreign key)
     // Gewijzigd TIMESTAMP
 
-    public function getKlanten()
+    public function getDocenten()
     {
         $this->connect();
-        $result = $this->db->query("SELECT * FROM klanten");
-        $klanten = array();
+        $result = $this->db->query("SELECT * FROM docenten");
+        $docenten = array();
         while ($row = $result->fetch_assoc()) {
-            $klanten[] = new Klant($row["ID"], $row["Naam"], $row["Email"], $row["Telefoon"], $row["Wachtwoord"], $this->getGebruikersrechtByID($row["FKgebruikersrechtenID"]), $row["Gewijzigd"]);
+            $docenten[] = new Docent($row["ID"], $row["Naam"], $row["Email"], $row["Telefoon"], $row["Wachtwoord"], $this->getGebruikersrechtByID($row["FKgebruikersrechtenID"]), $row["Gewijzigd"]);
         }
-        return $klanten;
+        return $docenten;
     }
 
-    public function getKlantByID($id)
+    public function getDocentByID($id)
     {
         $this->connect();
-        $result = $this->db->query("SELECT * FROM klanten WHERE ID = $id");
+        $result = $this->db->query("SELECT * FROM docenten WHERE ID = $id");
         $row = $result->fetch_assoc();
         if (is_null($row)) return null;
-        return new Klant($row["ID"], $row["Naam"], $row["Email"], $row["Telefoon"], $row["Wachtwoord"], $this->getGebruikersrechtByID($row["FKgebruikersrechtenID"]), $row["Gewijzigd"]);
+        return new Docent($row["ID"], $row["Naam"], $row["Email"], $row["Telefoon"], $row["Wachtwoord"], $this->getGebruikersrechtByID($row["FKgebruikersrechtenID"]), $row["Gewijzigd"]);
     }
 
     public function getKlantbyEmail($email)

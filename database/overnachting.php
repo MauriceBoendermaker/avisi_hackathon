@@ -7,18 +7,18 @@ namespace database;
 // overnachtingen
 // ID INT
 // FKboekingenID INT (foreign key)
-// FKherbergenID INT (foreign key)
+// FKstudentenID INT (foreign key)
 // FKstatussenID INT (foreign key)
 class Overnachting {
     private $id;
     private $fkboekingenid;
-    private $fkherbergenid;
+    private $fkstudentenid;
     private $fkstatussenid;
 
-    public function __construct($id, $fkboekingenid, $fkherbergenid, $fkstatussenid) {
+    public function __construct($id, $fkboekingenid, $fkstudentenid, $fkstatussenid) {
         $this->id = $id;
         $this->fkboekingenid = $fkboekingenid;
-        $this->fkherbergenid = $fkherbergenid;
+        $this->fkstudentenid = $fkstudentenid;
         $this->fkstatussenid = $fkstatussenid;
     }
 
@@ -30,8 +30,8 @@ class Overnachting {
         return $this->fkboekingenid;
     }
 
-    public function getHerberg() {
-        return $this->fkherbergenid;
+    public function getStudent() {
+        return $this->fkstudentenid;
     }
 
     public function getStatus() {
@@ -46,8 +46,8 @@ class Overnachting {
         $this->fkboekingenid = $boeking;
     }
 
-    public function setHerberg($herberg) {
-        $this->fkherbergenid = $herberg;
+    public function setStudent($student) {
+        $this->fksstudentenid = $student;
     }
 
     public function setStatus($status) {

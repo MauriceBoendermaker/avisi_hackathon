@@ -1,5 +1,5 @@
 <body>
-<?php include "include/nav_klant.php"; ?>
+<?php include "include/nav_docent.php"; ?>
 					<div class="alert alert-info" role="alert">
 						<h3>Contact gegevens</h3>
 							LearnFlow RijnIJssel<br/>

@@ -2,7 +2,7 @@
 
 use database\Boeking;
 
-include "./include/nav_klant.php"; ?>
+include "./include/nav_docent.php"; ?>
 <?php
 $db = new database\Database($db_host, $db_user, $db_pass, $db_name, $db_port);
 
@@ -118,9 +118,9 @@ switch ($view) {
 		break;
 	default:
 	?>
-		<h3>Boeking Klant</h3>
+		<h3>Boeking Docent</h3>
 		<?php
-		$boekingen = $db->getBoekingenByKlantID($_SESSION['id']); //$_SESSION['klant_id']
+		$boekingen = $db->getBoekingenByDocentID($_SESSION['id']); //$_SESSION['docent_id']
 		if (count($boekingen) == 0) {
 		?>
 			<div class="alert alert-info mt-2" role="alert">

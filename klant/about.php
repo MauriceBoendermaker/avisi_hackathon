@@ -1,5 +1,5 @@
 <body>
-<?php include "include/nav_klant.php"; ?>
+<?php include "include/nav_docent.php"; ?>
 					<div class="alert alert-info" role="alert">
 						<div class="container">
 							<div class="row">

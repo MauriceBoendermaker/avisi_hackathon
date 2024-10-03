@@ -10,17 +10,17 @@ class Boeking
 	private $startDatum;
 	private $pincode;
 	private $tocht;
-	private $klant;
+	private $docent;
 	private $status;
 	private $tracker;
 
-	public function __construct($id, $startDatum, $pincode, $tocht, $klant, $status, $tracker)
+	public function __construct($id, $startDatum, $pincode, $tocht, $docent, $status, $tracker)
 	{
 		$this->id = $id;
 		$this->startDatum = $startDatum;
 		$this->pincode = $pincode;
 		$this->tocht = $tocht;
-		$this->klant = $klant;
+		$this->docent = $docent;
 		$this->status = $status;
 		$this->tracker = $tracker;
 	}
@@ -52,9 +52,9 @@ class Boeking
 		return $this->tocht;
 	}
 
-	public function getKlant()
+	public function getDocent()
 	{
-		return $this->klant;
+		return $this->docent;
 	}
 
 	public function getStatus()
@@ -88,9 +88,9 @@ class Boeking
 		$this->tocht = $tocht;
 	}
 
-	public function setKlant($klant)
+	public function setDocent($docent)
 	{
-		$this->klant = $klant;
+		$this->docent = $docent;
 	}
 
 	public function setStatus($status)
