@@ -6,10 +6,12 @@
 								<div class="col-sm">
 									<h3>Over LearnFlow RijnIjssel</h3>
 									<p>
-										uitleg over LearnFlow
+										LearnFlow RijnIjssel is een systeem dat studenten van de software development
+										opleiding mbo aan rijn ijssel lerend te kwalificeren
 									</p>
 									<p>
-										uitleg over learnflow
+										wat dit inhoud is dat de huidige examens vervangen zullen worden met trajecten van 10 weken
+										waarin de voortgang en zaken ten ale tijden duidelijk zijn voor zowel docetn als student zelf
 									</p>
 									<h4>Adventure</h4>
 									<p>
@@ -26,9 +28,9 @@
 									<p>
 										<i>
 											<i class="fa-solid fa-quote-left"></i>
-											Toen er een boom over het bospad lag, weigerde onze ezel nog een stap te verzetten.
+											Traditionele examens namen veel tijd en ruimte in
 											<br/>
-											&nbsp;&nbsp;&nbsp;&nbsp;We waren erg blij met de assistentie van Donkey Travel!
+											&nbsp;&nbsp;&nbsp;&nbsp;We waren erg blij met de assistentie van LearnFlow!
 											<i class="fa-solid fa-quote-right"></i>
 										</i>
 									<h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Max en Ine uit Voorthuizen</h5>
