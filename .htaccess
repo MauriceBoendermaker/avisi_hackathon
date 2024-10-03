@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . routes.php [L]
+
+RewriteCond %{THE_REQUEST} \ /+[^\?]+\.(html|php)
+RewriteRule ^ - [L,R=404]
