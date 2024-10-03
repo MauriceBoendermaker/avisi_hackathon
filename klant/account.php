@@ -26,7 +26,7 @@ if (isset($_POST['cancel'])) {
 if (isset($_POST['save'])) {
 	if ($_POST['wachtwoord'] == $_POST['wachtwoord2']) {
 		$password = hash('sha256', $_POST['wachtwoord']);
-		$db->setKlant($id, $_POST['naam'], $_POST['email'], $_POST['telefoon'], $password, null);
+		$db->setDocent($id, $_POST['naam'], $_POST['email'], $_POST['telefoon'], $password, null);
 		home();
 	} else {
 		echo "<div class='alert alert-danger' role='alert'>
@@ -48,21 +48,21 @@ function home()
 	header('Location: boekingen');
 	exit();
 }
-$klant = $db->getKlantByID($id);
+$docent = $db->getDocentByID($id);
 ?>
 <h3>Mijn account wijzigen</h3>
 <form action="" method="post">
 	<div class="form-group mt-2">
 		<label for="naam">Naam:</label>
-		<input type='text' class='form-control' id='naam' name='naam' value='<?php echo $klant->getNaam(); ?>'>
+		<input type='text' class='form-control' id='naam' name='naam' value='<?php echo $docent->getNaam(); ?>'>
 	</div>
 	<div class="form-group mt-2">
 		<label for="adres">Emailadres:</label>
-		<input type='email' class='form-control' id='email' name='email' value='<?php echo $klant->getEmail(); ?>'>
+		<input type='email' class='form-control' id='email' name='email' value='<?php echo $docent->getEmail(); ?>'>
 	</div>
 	<div class="form-group mt-2">
 		<label for="telefoon">Telefoon:</label>
-		<input type='tel' class='form-control' id='telefoon' name='telefoon' value='<?php echo $klant->getTelefoon(); ?>'>
+		<input type='tel' class='form-control' id='telefoon' name='telefoon' value='<?php echo $docent->getTelefoon(); ?>'>
 	</div>
 	<div class="form-group mt-2">
 		<label for="wachtwoord">Wachtwoord:</label>

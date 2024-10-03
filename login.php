@@ -2,7 +2,7 @@
 
 // php code for login form with bootstrap use input email and password fields
 
-// klanten
+// docenten
 // ID INT
 // Naam VARCHAR(50)
 // Email VARCHAR(100)
@@ -20,20 +20,20 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 	// connect to database
 	$db = new database\Database($db_host, $db_user, $db_pass, $db_name, $db_port);
 
-	// get klant by email
-	$klant = $db->getKlantByEmail($email);
+	// get docent by email
+	$docent = $db->getDocentByEmail($email);
 
-	// check if klant exists
-	if ($klant) {
+	// check if docent exists
+	if ($docent) {
 		// check if password is correct
-		if ($klant->getWachtwoord() == $password) {
+		if ($docent->getWachtwoord() == $password) {
 			// set session variables
 			$_SESSION['loggedin'] = true;
-			$_SESSION['id'] = $klant->getID();
-			$_SESSION['naam'] = $klant->getNaam();
-			$_SESSION['email'] = $klant->getEmail();
-			$_SESSION['telefoon'] = $klant->getTelefoon();
-			$_SESSION['rechten'] = $klant->getGebruikersrechten()->getPermissions();
+			$_SESSION['id'] = $docent->getID();
+			$_SESSION['naam'] = $docent->getNaam();
+			$_SESSION['email'] = $docent->getEmail();
+			$_SESSION['telefoon'] = $docent->getTelefoon();
+			$_SESSION['rechten'] = $docent->getGebruikersrechten()->getPermissions();
 
 			// redirect to index_page
 			header('Location: ./');

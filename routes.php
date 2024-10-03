@@ -47,9 +47,9 @@ $router->before('GET|POST|PUT|DELETE', '/(.*)', function($page) {
 		header('Location: ' . base_url() . '/login');
 		exit;
 	}
-	if (startWith($page, 'klant/') || $page == 'logout' ) return;
+	if (startWith($page, 'docent/') || $page == 'logout' ) return;
 	if ($_SESSION['rechten']['read'] == false) {
-		header('Location: klant/welkom');
+		header('Location: docent/welkom');
 		exit;
 	}
 });
@@ -68,7 +68,7 @@ $router->all('/studenten', function () {
 
 $router->all('/', function () {
 	if ($_SESSION['rechten']['read'] == false) {
-		header('Location: klant/welkom');
+		header('Location: docent/welkom');
 		exit;
 	}
 	include 'index.php';
@@ -126,28 +126,28 @@ $router->all('/view', function () {
 	include 'view.php';
 });
 
-$router->all('/klant/boekingen', function () {
-	include 'klant/boekingen.php';
+$router->all('/docent/boekingen', function () {
+	include 'docent/boekingen.php';
 });
 
-$router->all('/klant/account', function () {
-	include 'klant/account.php';
+$router->all('/docent/account', function () {
+	include 'docent/account.php';
 });
 
-$router->all('/klant/reserveren', function () {
-	include 'klant/reserveren.php';
+$router->all('/docent/reserveren', function () {
+	include 'docent/reserveren.php';
 });
 
-$router->all('/klant/welkom', function () {
-	include 'klant/welkom.php';
+$router->all('/docent/welkom', function () {
+	include 'docent/welkom.php';
 });
 
-$router->all('/klant/about', function () {
-	include 'klant/about.php';
+$router->all('/docent/about', function () {
+	include 'docent/about.php';
 });
 
-$router->all('/klant/contact', function () {
-	include 'klant/contact.php';
+$router->all('/docent/contact', function () {
+	include 'docent/contact.php';
 });
 
 

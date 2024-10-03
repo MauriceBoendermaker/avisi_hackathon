@@ -3,9 +3,9 @@
 <!-- debug print database Statussen -->
 <?php
 $db = new database\Database($db_host, $db_user, $db_pass, $db_name, $db_port);
-$gasten = $db->getKlanten();
+$gasten = $db->getDocenten();
 
-// klanten
+// Docenten
 // ID INT
 // Naam VARCHAR(50)
 // Email VARCHAR(100)

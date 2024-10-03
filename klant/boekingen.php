@@ -18,11 +18,11 @@ if (isset($_POST['cancel']))
 
 $boeking = $db->getBoekingByID($id);
 if (isset($_POST['save']) || isset($_POST['delete']) || isset($_POST['reset']) || isset($_POST['setPin'])) {
-	if (isset($boeking) && $boeking->getKlant()->getID() != $_SESSION['id']) home();
+	if (isset($boeking) && $boeking->getDocent()->getID() != $_SESSION['id']) home();
 	if (isset($boeking)) {
 		if (isset($_POST['save'])) {
 			if ($_POST['startDatum'] < date("Y-m-d")) $error = true;
-			$db->setBoeking($boeking->getID(), $_POST['startDatum'], $boeking->getPincode(), $_POST['tochtID'], $boeking->getKlant()->getID(), $boeking->getStatus()->getID(), null);
+			$db->setBoeking($boeking->getID(), $_POST['startDatum'], $boeking->getPincode(), $_POST['tochtID'], $boeking->getDocent()->getID(), $boeking->getStatus()->getID(), null);
 		} else if (isset($_POST['delete'])) {
 			$tracker = $boeking->getTracker();
 			if (!is_null($tracker))
@@ -34,9 +34,9 @@ if (isset($_POST['save']) || isset($_POST['delete']) || isset($_POST['reset']) |
 		}
 	} else if (isset($_POST['id'])) {
 		$boeking = $db->getBoekingByID($_POST['id']);
-		if (!is_null($boeking) && $boeking->getKlant()->getID() == $_SESSION['id'] && $boeking->getStatus()->getStatusCode() == 20 && is_null($boeking->getPINCode())) {
+		if (!is_null($boeking) && $boeking->getDocent()->getID() == $_SESSION['id'] && $boeking->getStatus()->getStatusCode() == 20 && is_null($boeking->getPINCode())) {
 			$trackerID = $db->setTracker(null, intval($_POST['pin']), 0, 0, 0);
-			$db->setBoeking($boeking->getID(), $boeking->getStartDatum(), intval($_POST['pin']), $boeking->getTocht()->getID(), $boeking->getKlant()->getID(), $boeking->getStatus()->getID(), $trackerID);
+			$db->setBoeking($boeking->getID(), $boeking->getStartDatum(), intval($_POST['pin']), $boeking->getTocht()->getID(), $boeking->getDocent()->getID(), $boeking->getStatus()->getID(), $trackerID);
 		}
 	}
 	home();
@@ -50,7 +50,7 @@ function home()
 
 switch ($view) {
 	case "edit":
-		if ($boeking->getKlant()->getID() != $_SESSION['id']) home();
+		if ($boeking->getDocent()->getID() != $_SESSION['id']) home();
 ?>
 		<h3>Boeking wijzigen</h3>
 		<form action="" method="post">
@@ -85,7 +85,7 @@ switch ($view) {
 	<?php
 		break;
 	case "delete":
-		if ($boeking->getKlant()->getID() != $_SESSION['id']) home();
+		if ($boeking->getDocent()->getID() != $_SESSION['id']) home();
 	?>
 		<h3>Boeking verwijderen</h3>
 		<form action="" method="post">
@@ -99,12 +99,12 @@ switch ($view) {
 				<input value="<?php echo $boeking->getStatus()->getStatus(); ?>" type="text" class="form-control" id="status" disabled>
 			</div>
 			<div class="form-group mt-2">
-				<label for="klant">Klant:</label>
-				<input value="<?php echo $boeking->getKlant()->getNaam(); ?>" type="text" class="form-control" id="klant" disabled>
+				<label for="docent">Docent:</label>
+				<input value="<?php echo $boeking->getDocent()->getNaam(); ?>" type="text" class="form-control" id="docent" disabled>
 			</div>
 			<div class="form-group mt-2">
 				<label for="emailTelefoon">Email/Telefoon:</label>
-				<input value="<?php echo $boeking->getKlant()->getEmail() . " - " . $boeking->getKlant()->getTelefoon(); ?>" type="text" class="form-control" id="emailTelefoon" disabled>
+				<input value="<?php echo $boeking->getDocent()->getEmail() . " - " . $boeking->getDocent()->getTelefoon(); ?>" type="text" class="form-control" id="emailTelefoon" disabled>
 			</div>
 			<div class="form-group mt-2">
 				<label for="tocht">Tocht:</label>
@@ -169,7 +169,7 @@ switch ($view) {
 if (isset($_GET['setPin'])) {
 	$id = $_GET['setPin'];
 	$boeking = $db->getBoekingByID($id);
-	if (!is_null($boeking) && $boeking->getKlant()->getID() == $_SESSION['id'] && is_null($boeking->getPincode())) {
+	if (!is_null($boeking) && $boeking->getDocent()->getID() == $_SESSION['id'] && is_null($boeking->getPincode())) {
 		?>
 			<!-- Modal -->
 			<div class="modal fade" id="pinModal" tabindex="-1" role="dialog" aria-labelledby="pinModalLabel" aria-hidden="true">

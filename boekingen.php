@@ -9,7 +9,7 @@ $boekingen = $db->getBoekingen();
 // StartDatum DATE
 // PINCode INT
 // FKtochtenID INT (foreign key)
-// FKklantenID INT (foreign key)
+// FKDocentenID INT (foreign key)
 // FKstatussenID INT (foreign key)
 
 $id = -1;
@@ -30,7 +30,7 @@ if (isset($_POST['delete']) && isset($_POST['id'])) {
 }
 
 if (isset($_POST['save'])) {
-	$db->setBoeking($_POST['id'], $_POST['startDatum'], null, $_POST['tochtID'], $_POST['klantID'], $_POST['statusID'], null);
+	$db->setBoeking($_POST['id'], $_POST['startDatum'], null, $_POST['tochtID'], $_POST['docentID'], $_POST['statusID'], null);
 	home();
 }
 
@@ -74,14 +74,14 @@ switch ($view) {
 				?>
 			</div>
 			<div class="form-group mt-2">
-				<label for="klant">Klant:</label>
-				<select name="klantID" class="form-select" aria-label="Select klant">
-					<?php foreach ($db->getKlanten() as $klant) {
-						if ($klant->getNaam() == "admin") continue;
+				<label for="docent">Docent:</label>
+				<select name="docentID" class="form-select" aria-label="Select docent">
+					<?php foreach ($db->getDocenten() as $docent) {
+						if ($docent->getNaam() == "admin") continue;
 					?>
 						<option value="
-								<?php echo $klant->getID(); ?>" <?php if ($klant->getID() == $boeking->getKlant()->getID()) echo "selected"; ?>>
-							<?php echo $klant->getNaam() . " - " . $klant->getEmail() . " - " . $klant->getTelefoon(); ?>
+								<?php echo $docent->getID(); ?>" <?php if ($docent->getID() == $boeking->getDocent()->getID()) echo "selected"; ?>>
+							<?php echo $docent->getNaam() . " - " . $docent->getEmail() . " - " . $docent->getTelefoon(); ?>
 						</option>
 					<?php } ?>
 				</select>
@@ -118,12 +118,12 @@ switch ($view) {
 				<input value="<?php echo $boeking->getStatus()->getStatus(); ?>" type="text" class="form-control" id="status" disabled>
 			</div>
 			<div class="form-group mt-2">
-				<label for="klant">Klant:</label>
-				<input value="<?php echo $boeking->getKlant()->getNaam(); ?>" type="text" class="form-control" id="klant" disabled>
+				<label for="docent">Docent:</label>
+				<input value="<?php echo $boeking->getDocent()->getNaam(); ?>" type="text" class="form-control" id="Docent" disabled>
 			</div>
 			<div class="form-group mt-2">
 				<label for="emailTelefoon">Email/Telefoon:</label>
-				<input value="<?php echo $boeking->getKlant()->getEmail() . " - " . $boeking->getKlant()->getTelefoon(); ?>" type="text" class="form-control" id="emailTelefoon" disabled>
+				<input value="<?php echo $boeking->getDocent()->getEmail() . " - " . $boeking->getDocent()->getTelefoon(); ?>" type="text" class="form-control" id="emailTelefoon" disabled>
 			</div>
 			<div class="form-group mt-2">
 				<label for="tocht">Tocht:</label>
@@ -144,7 +144,7 @@ switch ($view) {
 				<th>Einddatum</th>
 				<th>Status</th>
 				<th>Pincode</th>
-				<th>Klantnaam</th>
+				<th>Docentnaam</th>
 				<th>Tocht</th>
 				<th>Email</th>
 				<th>Telefoon</th>
@@ -157,10 +157,10 @@ switch ($view) {
 			echo "<td>" . date('Y-m-d', strtotime($boeking->getStartdatum() . ' + ' . $boeking->getTocht()->getAantalDagen() . ' days')) . "</td>";
 			echo "<td>" . $boeking->getStatus()->getStatus() . "</td>";
 			echo "<td>" . $boeking->getPINCode() . "</td>";
-			echo "<td>" . $boeking->getKlant()->getNaam() . "</td>";
+			echo "<td>" . $boeking->getDocent()->getNaam() . "</td>";
 			echo "<td>" . $boeking->getTocht()->getOmschrijving() . "</td>";
-			echo "<td>" . $boeking->getKlant()->getEmail() . "</td>";
-			echo "<td>" . $boeking->getKlant()->getTelefoon() . "</td>";
+			echo "<td>" . $boeking->getDocent()->getEmail() . "</td>";
+			echo "<td>" . $boeking->getDocent()->getTelefoon() . "</td>";
 			echo "<td class='px-0 d-flex justify-content-center'>
 				<a class='mx-1' href='pauzeplaatsen_beheer?id={$boeking->getID()}'><button class='btn btn-primary min-height-0 btn-sm'><i class='fa-solid fa-pause'></i></button></a>
 				<a class='mx-1' href='overnachtingsplaatsen_beheer?id={$boeking->getID()}'><button class='btn btn-primary min-height-0 btn-sm'><i class='fa-solid fa-bed'></i></button></a>";

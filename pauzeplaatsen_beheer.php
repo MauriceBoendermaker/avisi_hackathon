@@ -103,12 +103,12 @@ if (isset($edit)) {
 			</div>
 			<div class="col-sm border pb-3">
 				<div class="form-group mt-2">
-					<label for="klant">Klant:</label>
-						<input name="klantID" class="form-control" aria-label="Select klant" value="<?php echo $boeking->getKlant()->getNaam(); ?>" disabled>
+					<label for="docent">Docent:</label>
+						<input name="docentID" class="form-control" aria-label="Select docent" value="<?php echo $boeking->getDocent()->getNaam(); ?>" disabled>
 				</div>
 				<div class="form-group mt-2">
-					<label for="klant">Email / Telefoon:</label>
-					<input name="klantID" class="form-control" aria-label="Select klant" value="<?php echo $boeking->getKlant()->getEmail() . " / " . $boeking->getKlant()->getTelefoon(); ?>" disabled>
+					<label for="docent">Email / Telefoon:</label>
+					<input name="docentID" class="form-control" aria-label="Select docent" value="<?php echo $boeking->getDocent()->getEmail() . " / " . $boeking->getDocent()->getTelefoon(); ?>" disabled>
 				</div>
 			</div>
 			<div class="col-sm border pb-3">

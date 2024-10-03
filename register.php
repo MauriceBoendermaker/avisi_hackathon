@@ -1,6 +1,6 @@
 <?php
 
-use database\Klant;
+use database\Docent;
 
 include "include/head.php";
 
@@ -17,7 +17,7 @@ include "include/head.php";
 
 	// php code for registration form with bootstrap use input name, email, password, password confirmation and phone number fields
 
-	// klanten
+	// Docenten
 	// ID INT
 	// Naam VARCHAR(50)
 	// Email VARCHAR(100)
@@ -29,11 +29,11 @@ include "include/head.php";
 	// if form is submitted
 	if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['wachtwoord']) && isset($_POST['phone'])) {
 		if ($_POST['wachtwoord'] == $_POST['wachtwoord2']) {
-			// create a new klant object
+			// create a new docent object
 			$password = hash('sha256', $_POST['wachtwoord']);
-			$klant = new Klant(null, $_POST['name'], $_POST['email'], $_POST['phone'], $password, 0, null);
+			$docent = new Docent(null, $_POST['name'], $_POST['email'], $_POST['phone'], $password, 0, null);
 			// save to database
-			$klant->save();
+            $docent->save();
 			// show success message
 			echo '<div class="alert alert-success" role="alert">
 			Account aangemaakt
@@ -41,11 +41,11 @@ include "include/head.php";
 
 			// set session variables
 			$_SESSION['loggedin'] = true;
-			$_SESSION['id'] = $klant->getID();
-			$_SESSION['naam'] = $klant->getNaam();
-			$_SESSION['email'] = $klant->getEmail();
-			$_SESSION['telefoon'] = $klant->getTelefoon();
-			$_SESSION['rechten'] = $klant->getGebruikersrechten()->getPermissions();
+			$_SESSION['id'] = $docent->getID();
+			$_SESSION['naam'] = $docent->getNaam();
+			$_SESSION['email'] = $docent->getEmail();
+			$_SESSION['telefoon'] = $docent->getTelefoon();
+			$_SESSION['rechten'] = $docent->getGebruikersrechten()->getPermissions();
 
 			// redirect to index_page
 			header('Location: ./');

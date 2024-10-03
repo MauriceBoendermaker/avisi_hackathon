@@ -57,7 +57,7 @@ class Database
     // StartDatum DATE
     // PINCode INT
     // FKtochtenID INT (foreign key)
-    // FKklantenID INT (foreign key)
+    // FKDocentenID INT (foreign key)
     // FKstatussenID INT (foreign key)
     public function getBoekingen()
     {
@@ -65,7 +65,7 @@ class Database
         $result = $this->db->query("SELECT * FROM boekingen");
         $boekingen = array();
         while ($row = $result->fetch_assoc()) {
-            $boekingen[] = new Boeking($row["ID"], $row["StartDatum"], $row["PINCode"], $this->getTochtByID($row["FKtochtenID"]), $this->getKlantByID($row["FKklantenID"]), $this->getStatusByID($row["FKstatussenID"]), !isset($row["FKtrackerID"]) ? null : $this->getTrackerByID($row["FKtrackerID"]));
+            $boekingen[] = new Boeking($row["ID"], $row["StartDatum"], $row["PINCode"], $this->getTochtByID($row["FKtochtenID"]), $this->getDocentByID($row["FKdocentenID"]), $this->getStatusByID($row["FKstatussenID"]), !isset($row["FKtrackerID"]) ? null : $this->getTrackerByID($row["FKtrackerID"]));
         }
         return $boekingen;
     }
@@ -77,16 +77,16 @@ class Database
         // check if result is empty
         $row = $result->fetch_assoc();
         if (is_null($row)) return null;
-        return new Boeking($row["ID"], $row["StartDatum"], $row["PINCode"], $this->getTochtByID($row["FKtochtenID"]), $this->getKlantByID($row["FKklantenID"]), $this->getStatusByID($row["FKstatussenID"]), !isset($row["FKtrackerID"]) ? null : $this->getTrackerByID($row["FKtrackerID"]));
+        return new Boeking($row["ID"], $row["StartDatum"], $row["PINCode"], $this->getTochtByID($row["FKtochtenID"]), $this->getDocentByID($row["FKdocentenID"]), $this->getStatusByID($row["FKstatussenID"]), !isset($row["FKtrackerID"]) ? null : $this->getTrackerByID($row["FKtrackerID"]));
     }
 
-    public function getBoekingenByKlantID($id)
+    public function getBoekingenByDocentID($id)
     {
         $this->connect();
-        $result = $this->db->query("SELECT * FROM boekingen WHERE FKklantenID = $id");
+        $result = $this->db->query("SELECT * FROM boekingen WHERE FKdocentenID = $id");
         $boekingen = array();
         while ($row = $result->fetch_assoc()) {
-            $boekingen[] = new Boeking($row["ID"], $row["StartDatum"], $row["PINCode"], $this->getTochtByID($row["FKtochtenID"]), $this->getKlantByID($row["FKklantenID"]), $this->getStatusByID($row["FKstatussenID"]), !isset($row["FKtrackerID"]) ? null : $this->getTrackerByID($row["FKtrackerID"]));
+            $boekingen[] = new Boeking($row["ID"], $row["StartDatum"], $row["PINCode"], $this->getTochtByID($row["FKtochtenID"]), $this->getDocentByID($row["FKdocentenID"]), $this->getStatusByID($row["FKstatussenID"]), !isset($row["FKtrackerID"]) ? null : $this->getTrackerByID($row["FKtrackerID"]));
         }
         return $boekingen;
     }
@@ -97,22 +97,22 @@ class Database
         $result = $this->db->query("SELECT * FROM boekingen WHERE FKstatussenID = $id");
         $boekingen = array();
         while ($row = $result->fetch_assoc()) {
-            $boekingen[] = new Boeking($row["ID"], $row["StartDatum"], $row["PINCode"], $this->getTochtByID($row["FKtochtenID"]), $this->getKlantByID($row["FKklantenID"]), $this->getStatusByID($row["FKstatussenID"]), !isset($row["FKtrackerID"]) ? null : $this->getTrackerByID($row["FKtrackerID"]));
+            $boekingen[] = new Boeking($row["ID"], $row["StartDatum"], $row["PINCode"], $this->getTochtByID($row["FKtochtenID"]), $this->getDocentByID($row["FKdocentenID"]), $this->getStatusByID($row["FKstatussenID"]), !isset($row["FKtrackerID"]) ? null : $this->getTrackerByID($row["FKtrackerID"]));
         }
         return $boekingen;
     }
 
-    public function setBoeking($id, $startDatum, $pinCode, $fkTochtenID, $fkKlantenID, $fkStatussenID, $fkTrackersID)
+    public function setBoeking($id, $startDatum, $pinCode, $fkTochtenID, $fkDocentenID, $fkStatussenID, $fkTrackersID)
     {
         $this->connect();
 
         if (is_null($id)) {
-            $query = "INSERT INTO boekingen (StartDatum, FKtochtenID, FKklantenID, FKstatussenID";
+            $query = "INSERT INTO boekingen (StartDatum, FKtochtenID, FKdocentenID, FKstatussenID";
             if (!is_null($pinCode))
                 $query .= ", PINCode";
             if (!is_null($fkTrackersID))
                 $query .= ", FKtrackerID";
-            $query .= ") VALUES ('$startDatum', '$fkTochtenID', '$fkKlantenID', '$fkStatussenID'";
+            $query .= ") VALUES ('$startDatum', '$fkTochtenID', '$fkDocentenID', '$fkStatussenID'";
 
             if (!is_null($pinCode))
                 $query .= ", '$pinCode'";
@@ -123,7 +123,7 @@ class Database
             
             $result = $this->db->query($query);
         } else {
-            $query = "UPDATE boekingen SET StartDatum = '$startDatum', FKtochtenID = '$fkTochtenID', FKklantenID = '$fkKlantenID', FKstatussenID = '$fkStatussenID'";
+            $query = "UPDATE boekingen SET StartDatum = '$startDatum', FKtochtenID = '$fkTochtenID', FKdocentenID = '$fkDocentenID', FKstatussenID = '$fkStatussenID'";
             if (!is_null($pinCode))
                 $query .= ", PINCode = '$pinCode'";
             if (!is_null($fkTrackersID))
@@ -139,8 +139,8 @@ class Database
         $tocht = $boeking->getTocht();
         if ($tocht instanceof Tocht) $tocht = $tocht->getID();
 
-        $klant = $boeking->getKlant();
-        if ($klant instanceof Klant) $klant = $klant->getID();
+        $docent = $boeking->getDocent();
+        if ($docent instanceof Docent) $docent = $docent->getID();
 
         $status = $boeking->getStatus();
         if ($status instanceof Status) $status = $status->getID();
@@ -148,10 +148,10 @@ class Database
         $tracker = $boeking->getTracker();
         if ($tracker instanceof Tracker) $tracker = $tracker->getID();
 
-        $klant = $boeking->getKlant();
-        if (!is_numeric($klant)) $klant = $klant->getID();
+        $docent = $boeking->getDocent();
+        if (!is_numeric($docent)) $docent = $docent->getID();
 
-        $this->setBoeking($new ? null : $boeking->getID(), $boeking->getStartDatum(), $boeking->getPINCode(), $tocht, $klant, $status, $tracker);
+        $this->setBoeking($new ? null : $boeking->getID(), $boeking->getStartDatum(), $boeking->getPINCode(), $tocht, $docent, $status, $tracker);
 
         return;
     }
@@ -246,18 +246,18 @@ class Database
         return new Docent($row["ID"], $row["Naam"], $row["Email"], $row["Telefoon"], $row["Wachtwoord"], $this->getGebruikersrechtByID($row["FKgebruikersrechtenID"]), $row["Gewijzigd"]);
     }
 
-    public function getKlantbyEmail($email)
+    public function getDocentbyEmail($email)
 	{
 		$this->connect();
-		$result = $this->db->query("SELECT * FROM klanten WHERE Email = '$email'");
+		$result = $this->db->query("SELECT * FROM Docenten WHERE Email = '$email'");
 		$row = $result->fetch_assoc();
 		if ($result->num_rows == 0) {
 			return null;
 		}
-        return new Klant($row["ID"], $row["Naam"], $row["Email"], $row["Telefoon"], $row["Wachtwoord"], $this->getGebruikersrechtByID($row["FKgebruikersrechtenID"]), $row["Gewijzigd"]);
+        return new Docent($row["ID"], $row["Naam"], $row["Email"], $row["Telefoon"], $row["Wachtwoord"], $this->getGebruikersrechtByID($row["FKgebruikersrechtenID"]), $row["Gewijzigd"]);
 	}
 
-    public function setKlant($id, $naam, $email, $telefoon, $wachtwoord, $fkGebruikersrechtenID, $gewijzigd = null)
+    public function setDocent($id, $naam, $email, $telefoon, $wachtwoord, $fkGebruikersrechtenID, $gewijzigd = null)
 	{
 		$this->connect();
 		if (is_null($gewijzigd) || empty($gewijzigd))
@@ -265,31 +265,31 @@ class Database
 
 		if (is_null($id)) {
 			if (is_null($fkGebruikersrechtenID)) {
-				$result = $this->db->query("INSERT INTO klanten (Naam, Email, Telefoon, Wachtwoord, Gewijzigd) VALUES ('$naam', '$email', '$telefoon', '$wachtwoord', '$gewijzigd')");
+				$result = $this->db->query("INSERT INTO docenten (Naam, Email, Telefoon, Wachtwoord, Gewijzigd) VALUES ('$naam', '$email', '$telefoon', '$wachtwoord', '$gewijzigd')");
 			} else {
-				$result = $this->db->query("INSERT INTO klanten (Naam, Email, Telefoon, Wachtwoord, FKgebruikersrechtenID, Gewijzigd) VALUES ('$naam', '$email', '$telefoon', '$wachtwoord', $fkGebruikersrechtenID, '$gewijzigd')");
+				$result = $this->db->query("INSERT INTO docenten (Naam, Email, Telefoon, Wachtwoord, FKgebruikersrechtenID, Gewijzigd) VALUES ('$naam', '$email', '$telefoon', '$wachtwoord', $fkGebruikersrechtenID, '$gewijzigd')");
 			}
 		} else {
 			if (is_null($fkGebruikersrechtenID)) {
-				$result = $this->db->query("UPDATE klanten SET Naam = '$naam', Email = '$email', Telefoon = '$telefoon', Wachtwoord = '$wachtwoord', Gewijzigd = '$gewijzigd' WHERE ID = $id");
+				$result = $this->db->query("UPDATE docenten SET Naam = '$naam', Email = '$email', Telefoon = '$telefoon', Wachtwoord = '$wachtwoord', Gewijzigd = '$gewijzigd' WHERE ID = $id");
 			} else {
-				$result = $this->db->query("UPDATE klanten SET Naam = '$naam', Email = '$email', Telefoon = '$telefoon', Wachtwoord = '$wachtwoord', FKgebruikersrechtenID = $fkGebruikersrechtenID, Gewijzigd = '$gewijzigd' WHERE ID = $id");
+				$result = $this->db->query("UPDATE docenten SET Naam = '$naam', Email = '$email', Telefoon = '$telefoon', Wachtwoord = '$wachtwoord', FKgebruikersrechtenID = $fkGebruikersrechtenID, Gewijzigd = '$gewijzigd' WHERE ID = $id");
 			}
 		}
 	}
 
-    public function applyKlant($klant, $new = false)
+    public function applyDocent($docent, $new = false)
     {
         $this->connect();
-        $this->setKlant($new ? null : $klant->getID(), $klant->getNaam(), $klant->getEmail(), $klant->getTelefoon(), $klant->getWachtwoord(), $klant->getGebruikersrechten()->getID());
-        if (!$new) return $klant->getID();
+        $this->setDocent($new ? null : $docent->getID(), $docent->getNaam(), $docent->getEmail(), $docent->getTelefoon(), $docent->getWachtwoord(), $docent->getGebruikersrechten()->getID());
+        if (!$new) return $docent->getID();
         return $this->db->insert_id;
     }
     
-    public function deleteKlant($id)
+    public function deleteDocent($id)
     {
         $this->connect();
-        $result = $this->db->query("DELETE FROM klanten WHERE ID = $id");
+        $result = $this->db->query("DELETE FROM docenten WHERE ID = $id");
     }
 
     // gebruikersrechten
