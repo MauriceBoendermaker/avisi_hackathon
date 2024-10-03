@@ -3,7 +3,7 @@
 namespace database;
 
 require_once 'boeking.php';
-require_once 'herberg.php';
+require_once 'student.php';
 require_once 'klant.php';
 require_once 'overnachting.php';
 require_once 'pauzeplaats.php';
@@ -165,7 +165,7 @@ class Database
         $result = $this->db->query("DELETE FROM boekingen WHERE ID = $id");
     }
 
-    // herbergen
+    // studenten
     // ID INT
     // Naam VARCHAR(50)
     // Adres VARCHAR(50)
@@ -173,48 +173,48 @@ class Database
     // Telefoon VARCHAR(20)
     // Coordinaten VARCHAR(20)
     // Gewijzigd TIMESTAMP
-    public function getHerbergen()
+    public function getStudenten()
     {
         $this->connect();
-        $result = $this->db->query("SELECT * FROM herbergen");
-        $herbergen = array();
+        $result = $this->db->query("SELECT * FROM studenten");
+        $studenten = array();
         while ($row = $result->fetch_assoc()) {
-            $herbergen[] = new Herberg($row["ID"], $row["Naam"], $row["Adres"], $row["Email"], $row["Telefoon"], $row["Coordinaten"], $row["Gewijzigd"]);
+            $studenten[] = new Student($row["ID"], $row["Naam"], $row["Adres"], $row["Email"], $row["Telefoon"], $row["Coordinaten"], $row["Gewijzigd"]);
         }
-        return $herbergen;
+        return $studenten;
     }
 
-    public function getHerbergByID($id)
+    public function getStudentByID($id)
     {
         $this->connect();
-        $result = $this->db->query("SELECT * FROM herbergen WHERE ID = $id");
+        $result = $this->db->query("SELECT * FROM studenten WHERE ID = $id");
         $row = $result->fetch_assoc();
         if (is_null($row)) return null;
-        return new Herberg($row["ID"], $row["Naam"], $row["Adres"], $row["Email"], $row["Telefoon"], $row["Coordinaten"], $row["Gewijzigd"]);
+        return new Student($row["ID"], $row["Naam"], $row["Adres"], $row["Email"], $row["Telefoon"], $row["Coordinaten"], $row["Gewijzigd"]);
     }
 
-    public function setHerberg($id, $naam, $adres, $email, $telefoon, $coordinaten, $gewijzigd = null)
+    public function setStudent($id, $naam, $adres, $email, $telefoon, $coordinaten, $gewijzigd = null)
     {
         $this->connect();
         if (is_null($gewijzigd) || empty($gewijzigd))
             $gewijzigd = date("Y-m-d H:i:s");
 
         if (is_null($id)) {
-            $result = $this->db->query("INSERT INTO herbergen (Naam, Adres, Email, Telefoon, Coordinaten, Gewijzigd) VALUES ('$naam', '$adres', '$email', '$telefoon', '$coordinaten', '$gewijzigd')");
+            $result = $this->db->query("INSERT INTO studenten (Naam, Adres, Email, Telefoon, Coordinaten, Gewijzigd) VALUES ('$naam', '$adres', '$email', '$telefoon', '$coordinaten', '$gewijzigd')");
         } else {
-            $result = $this->db->query("UPDATE herbergen SET Naam = '$naam', Adres = '$adres', Email = '$email', Telefoon = '$telefoon', Coordinaten = '$coordinaten', Gewijzigd = '$gewijzigd' WHERE ID = $id");
+            $result = $this->db->query("UPDATE studenten SET Naam = '$naam', Adres = '$adres', Email = '$email', Telefoon = '$telefoon', Coordinaten = '$coordinaten', Gewijzigd = '$gewijzigd' WHERE ID = $id");
         }
     }
 
-    public function applyHerberg($herberg, $new = false)
+    public function applyStudent($student, $new = false)
     {
-        $this->setHerberg($new ? null : $herberg->getID(), $herberg->getNaam(), $herberg->getAdres(), $herberg->getEmail(), $herberg->getTelefoon(), $herberg->getCoordinaten());
+        $this->setStudent($new ? null : $student->getID(), $student->getNaam(), $student->getAdres(), $student->getEmail(), $student->getTelefoon(), $student->getCoordinaten());
     }
 
-    public function deleteHerberg($id)
+    public function deleteStudent($id)
     {
         $this->connect();
-        $result = $this->db->query("DELETE FROM herbergen WHERE ID = $id");
+        $result = $this->db->query("DELETE FROM studenten WHERE ID = $id");
     }
 
     // klanten

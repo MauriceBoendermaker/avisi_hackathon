@@ -62,8 +62,8 @@ $router->all('/gasten', function () {
 	include 'gasten.php';
 });
 
-$router->all('/herbergen', function () {
-	include 'herbergen.php';
+$router->all('/studenten', function () {
+	include 'studenten.php';
 });
 
 $router->all('/', function () {

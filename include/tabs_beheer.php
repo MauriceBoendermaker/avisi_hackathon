@@ -4,7 +4,7 @@
             <a id="nav-gasten" class="nav-link" aria-current="page" href="gasten">Gasten</a>
         </li>
         <li class="nav-item">
-            <a id="nav-herbergen" class="nav-link" href="herbergen">Herbergen</a>
+            <a id="nav-studenten" class="nav-link" href="studenten">Studenten</a>
         </li>
         <li class="nav-item">
             <a id="nav-restaurants" class="nav-link" href="restaurants">Restaurants</a>
