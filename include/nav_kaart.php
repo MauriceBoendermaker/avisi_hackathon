@@ -1,7 +1,7 @@
 <?php include "include/head.php"; ?>
 <div class="container">
 	<div class="crud-container">
-		<h2>Donkey Travel Administrative Tools</h2>
+		<h2>LearnFlow RijnIJssel Administrative Tools</h2>
 		<ul class="nav nav-tabs">
 			<li class="nav-item"><a class="nav-link" aria-current="page" href="index">Welcome</a></li>
 			<li class="nav-item"><a class="nav-link" href="boekingen">Boekingen</a></li>

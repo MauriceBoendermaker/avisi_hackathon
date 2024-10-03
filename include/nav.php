@@ -2,7 +2,7 @@
 <div class="container">
 	<div class="crud-container">
 		<div class="row">
-			<h2 class="col-5">Donkey Travel Administrative Tools</h2>
+			<h2 class="col-5">LearnFlow RijnIJssel Administrative Tools</h2>
 			<div class="col-7">
 				<div class="float-end">
 					<p class="my-0">Ingelogd als:</p>

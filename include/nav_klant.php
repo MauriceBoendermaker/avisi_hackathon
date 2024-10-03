@@ -2,7 +2,7 @@
 <div class="container">
 	<div class="crud-container">
 		<div class="row">
-			<h2 class="col-4">Mijn Donkey Travel</h2>
+			<h2 class="col-4">Mijn LearnFlow RijnIJssel</h2>
 			<div class="col-8">
 				<div class="float-end">
 					<p class="my-0">Ingelogd als:</p>

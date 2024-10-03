@@ -10,7 +10,7 @@
                     <div class="alert alert-info" role="alert">
                         <i class="fa fa-info-circle" aria-hidden="true"></i>
                         <span class="sr-only">Info:</span>
-	                    Donkey Travel is een adventurebedrijf dat ezels met huifkarren verhuurt.
+	                    LearnFlow RijnIjssel is een tool die kwalificerend leren ondersteunt.
                     </div>
 <?php include "include/footer.php" ?>
         </div>

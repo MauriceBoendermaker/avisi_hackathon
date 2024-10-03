@@ -66,7 +66,7 @@ include "include/head.php";
 				<div class="col-md-4 offset-md-4">
 					<div class="card">
 						<div class="card-body">
-							<h3 class="card-title text-center">Donkey Travel account aanvragen</h3>
+							<h3 class="card-title text-center">LearnFlow RijnIjssel account aanvragen</h3>
 							<form action="register" name="register" method="post">
 								<?php
 								if (isset($error)) {

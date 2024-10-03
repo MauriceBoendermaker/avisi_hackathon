@@ -61,7 +61,7 @@ class Klant
 	{
 		// if gebruikersrechten is an integer, get gebruikersrechten from database
 		if (is_int($this->gebruikersrechten)) {
-			$db = new Database("localhost", "root", "", "donkey", null);
+			$db = new Database("localhost", "root", "", "LearnFlow", null);
 			$this->gebruikersrechten = $db->getGebruikersrechtByID($this->gebruikersrechten);
 		}
 		return $this->gebruikersrechten;
@@ -109,7 +109,7 @@ class Klant
 
 	public function save()
 	{
-		$db = new Database("localhost", "root", "", "donkey", null);
+		$db = new Database("localhost", "root", "", "LearnFlow", null);
 		$this->setID($db->applyKlant($this, true));
 	}
 }

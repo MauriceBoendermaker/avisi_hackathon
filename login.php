@@ -63,7 +63,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 				<div class="col-md-4 offset-md-4">
 					<div class="card">
 						<div class="card-body">
-							<h3 class="card-title">Mijn Donkey Travel inloggen</h3>
+							<h3 class="card-title">Mijn LearnFlow RijnIjssel inloggen</h3>
 							<form action="login" method="post">
 								<!-- error -->
 								<?php if (isset($error)) {
