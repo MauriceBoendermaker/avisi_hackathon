@@ -2,6 +2,6 @@
     $db_host = "localhost";
     $db_user = "root";
     $db_pass = "";
-    $db_name = "LearnFlow";
+    $db_name = "learnflow";
     $db_port = null;
 ?>

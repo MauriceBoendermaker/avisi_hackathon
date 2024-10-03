@@ -2,34 +2,31 @@
 
 namespace database;
 
-// klanten
+// docenten
 // ID INT
 // Naam VARCHAR(50)
 // Email VARCHAR(100)
-// Telefoon VARCHAR(20)
+// Afkorting VARCHAR(10)
 // Wachtwoord VARCHAR(100)
-// gebruikersrechten INT (foreign key)
-// Gewijzigd TIMESTAMP
+// Gebruikersrechten INT
 
-class Klant
+class Docent
 {
 	private $id;
 	private $naam;
 	private $email;
-	private $telefoon;
+	private $afkorting;
 	private $wachtwoord;
 	private $gebruikersrechten;
-	private $gewijzigd;
 
-	public function __construct($id, $naam, $email, $telefoon, $wachtwoord, $gebruikersrechten, $gewijzigd)
+	public function __construct($id, $naam, $email, $afkorting, $wachtwoord, $gebruikersrechten)
 	{
 		$this->id = $id;
 		$this->naam = $naam;
 		$this->email = $email;
-		$this->telefoon = $telefoon;
-		$this->wachtwoord = $wachtwoord;
+		$this->afkorting = $afkorting;
+		$this->wachtwoord = "docent"; // $wachtwoord;
 		$this->gebruikersrechten = $gebruikersrechten;
-		$this->gewijzigd = $gewijzigd;
 	}
 
 	public function getID()
@@ -47,9 +44,9 @@ class Klant
 		return $this->email;
 	}
 
-	public function getTelefoon()
+	public function getAfkorting()
 	{
-		return $this->telefoon;
+		return $this->afkorting;
 	}
 
 	public function getWachtwoord()
@@ -67,10 +64,6 @@ class Klant
 		return $this->gebruikersrechten;
 	}
 
-	public function getGewijzigd()
-	{
-		return $this->gewijzigd;
-	}
 
 	public function setID($id)
 	{
@@ -87,9 +80,9 @@ class Klant
 		$this->email = $email;
 	}
 
-	public function setTelefoon($telefoon)
+	public function setAfkorting($afkorting)
 	{
-		$this->telefoon = $telefoon;
+		$this->afkorting = $afkorting;
 	}
 
 	public function setWachtwoord($wachtwoord)
@@ -102,14 +95,9 @@ class Klant
 		$this->gebruikersrechten = $gebruikersrechten;
 	}
 
-	public function setGewijzigd($gewijzigd)
-	{
-		$this->gewijzigd = $gewijzigd;
-	}
-
 	public function save()
 	{
-		$db = new Database("localhost", "root", "", "LearnFlow", null);
-		$this->setID($db->applyKlant($this, true));
+		$db = new Database("localhost", "root", "", "learnflow", null);
+		$this->setID($db->applyDocent($this, true));
 	}
 }
