@@ -8,7 +8,7 @@ require_once 'docent.php';
 require_once 'overnachting.php';
 require_once 'pauzeplaats.php';
 require_once 'beheerder.php';
-require_once 'status.php';
+require_once 'criterium.php';
 require_once 'tocht.php';
 require_once 'tracker.php';
 require_once 'gebruikersrechten.php';
