@@ -1,16 +1,17 @@
 <?php
 
+
 namespace database;
+    // restaurants
+    // ID INT
+    // Naam VARCHAR(50)
+    // Adres VARCHAR(50)
+    // Email VARCHAR(50)
+    // Telefoon VARCHAR(20)
+    // Coordinaten VARCHAR(20)
+    // Gewijzigd TIMESTAMP
 
-// docenten
-// ID INT
-// Naam VARCHAR(50)
-// Email VARCHAR(100)
-// Afkorting VARCHAR(10)
-// Wachtwoord VARCHAR(100)
-// Gebruikersrechten INT
-
-class Docent
+    class Beheerder
     {
         private $id;
         private $naam;
