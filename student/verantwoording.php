@@ -1,9 +1,9 @@
-<?php include "./include/nav_docent.php"; ?>
+<?php include "./include/nav_student.php"; ?>
 <?php
 $db = new database\Database($db_host, $db_user, $db_pass, $db_name, $db_port);
-$docenten = $db->getDocenten();
+$studenten = $db->getStudenten();
 
-// docenten
+// studenten
 // ID INT
 // Naam VARCHAR(50)
 // Email VARCHAR(100)

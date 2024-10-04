@@ -18,7 +18,7 @@
 				<a id="nav-docent-beheer" class="nav-link <?php if (endsWith(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), "projecten", "reserveren")) echo "active\" aria-current=\"page"; ?>" href="projecten">Projecten</a>
 			</li>
 			<li class="nav-item">
-				<a id="nav-docent-account" class="nav-link <?php if (endsWith(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), "account")) echo "active\" aria-current=\"page"; ?>" href="account">Account</a>
+				<a id="nav-docent-account" class="nav-link <?php if (endsWith(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), "account")) echo "active\" aria-current=\"page"; ?>" href="account">Verantwoording</a>
 			</li>
 			<li class="nav-item ms-auto">
 				<a id="nav-docent-about" class="nav-link <?php if (endsWith(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), "about")) echo "active\" aria-current=\"page"; ?>" href="about">About</a>
