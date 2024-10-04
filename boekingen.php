@@ -119,7 +119,7 @@ switch ($view) {
 			</div>
 			<div class="form-group mt-2">
 				<label for="docent">Docent:</label>
-				<input value="<?php echo $boeking->getDocent()->getNaam(); ?>" type="text" class="form-control" id="Docent" disabled>
+				<input value="<?php echo $boeking->getDocent()->getNaam(); ?>" type="text" class="form-control" id="docent" disabled>
 			</div>
 			<div class="form-group mt-2">
 				<label for="emailTelefoon">Email/Telefoon:</label>

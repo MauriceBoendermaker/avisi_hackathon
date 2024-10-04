@@ -47,7 +47,7 @@ class Overnachting {
     }
 
     public function setStudent($student) {
-        $this->fksstudentenid = $student;
+        $this->fkstudentenid = $student;
     }
 
     public function setStatus($status) {
