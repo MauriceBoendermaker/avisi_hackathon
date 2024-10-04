@@ -180,8 +180,8 @@ $router->all('/student/contact', function () {
 	include 'student/contact.php';
 });
 
-$router->all('/student/account', function () {
-	include 'student/account.php';
+$router->all('/student/verantwoording', function () {
+	include 'student/verantwoording.php';
 });
 
 $router->get('api/markers.json', function () {
