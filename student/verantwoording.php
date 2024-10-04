@@ -89,7 +89,7 @@ $docent = $db->getDocentByID($id);
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary float-start" data-dismiss="modal">Annuleren</button>
-				<form target="account.php" method="post"><button type="submit" name="delete" class="btn btn-danger float-end">Verwijder</button></form>
+				<form target="verantwoording.php" method="post"><button type="submit" name="delete" class="btn btn-danger float-end">Verwijder</button></form>
 			</div>
 		</div>
 	</div>

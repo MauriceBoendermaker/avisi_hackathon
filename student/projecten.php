@@ -2,7 +2,7 @@
 
 use database\Project;
 
-include "./include/nav_docent.php"; ?>
+include "./include/nav_student.php"; ?>
 <?php
 $db = new database\Database($db_host, $db_user, $db_pass, $db_name, $db_port);
 

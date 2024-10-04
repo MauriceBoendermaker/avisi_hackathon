@@ -1,5 +1,5 @@
 <body>
-<?php include "include/nav_docent.php"; ?>
+<?php include "include/nav_student.php"; ?>
 	                <!-- Welcome screen saying name of user -->
                     <?php
                     if (isset($_SESSION['naam'])) {
