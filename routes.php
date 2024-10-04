@@ -47,10 +47,15 @@ $router->before('GET|POST|PUT|DELETE', '/(.*)', function($page) {
 		header('Location: ' . base_url() . 'login');
 		exit;
 	}
-	if (startWith($page, 'docent/') || $page == 'logout') return;
+	if (startWith($page, 'docent/') || startWith($page, 'student/') || $page == 'logout') return;
 	if ($_SESSION['rechten']['read'] == false) {
-		header('Location: docent/welkom');
-		exit;
+		if ($_SESSION['role'] == 'docent') {
+			header('Location: docent/welkom');
+			exit;
+		} else {
+			header('Location: student/welkom');
+			exit;
+		}
 	}
 });
 
@@ -68,8 +73,13 @@ $router->all('/studenten', function () {
 
 $router->all('/', function () {
 	if ($_SESSION['rechten']['read'] == false) {
-		header('Location: docent/welkom');
-		exit;
+		if ($_SESSION['role'] == 'docent') {
+			header('Location: docent/welkom');
+			exit;
+		} else {
+			header('Location: student/welkom');
+			exit;
+		}
 	}
 	include 'index.php';
 });
@@ -149,6 +159,15 @@ $router->all('/docent/about', function () {
 $router->all('/docent/contact', function () {
 	include 'docent/contact.php';
 });
+
+$router->all('/student/welkom', function () {
+	include 'student/welkom.php';
+});
+
+$router->all('/student/boekingen', function () {
+	include 'docent/boekingen.php';
+});
+
 
 
 $router->get('api/markers.json', function () {

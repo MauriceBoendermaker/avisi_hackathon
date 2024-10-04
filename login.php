@@ -33,6 +33,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 			$_SESSION['naam'] = $docent->getNaam();
 			$_SESSION['email'] = $docent->getEmail();
 			$_SESSION['rechten'] = $docent->getGebruikersrechten()->getPermissions();
+			$_SESSION['role'] = "docent";
 
 			// redirect to index_page
 			header('Location: ./');
@@ -47,6 +48,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 			$_SESSION['naam'] = $student->getNaam();
 			$_SESSION['email'] = $student->getEmail();
 			$_SESSION['rechten'] = 0;
+			$_SESSION['role'] = "student";
 
 			header('Location: ./');
 			exit;
@@ -61,7 +63,14 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 // if user is logged in, redirect to index_page
 
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-	header('Location: ./');
+	if ($_SESSION['role'] == "docent") {
+		header('Location: docent/welkom');
+		exit;
+	} else {
+		header('Location: studenten');
+		exit;
+	}
+
 	exit;
 }
 
