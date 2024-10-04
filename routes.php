@@ -165,7 +165,19 @@ $router->all('/student/welkom', function () {
 });
 
 $router->all('/student/boekingen', function () {
-	include 'docent/boekingen.php';
+	include 'student/boekingen.php';
+});
+
+$router->all('/student/reserveren', function () {
+	include 'student/reserveren.php';
+});
+
+$router->all('/student/about', function () {
+	include 'student/about.php';
+});
+
+$router->all('/student/contact', function () {
+	include 'student/contact.php';
 });
 
 $router->get('api/markers.json', function () {

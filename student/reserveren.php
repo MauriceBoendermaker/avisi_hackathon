@@ -20,7 +20,7 @@ if (isset($_POST['submit'])) {
     }
 }
 ?>
-<h3>Boeking Reserveren</h3>
+<h3>Project starten</h3>
 <div class="row">
     <form class="col-md-7 h-100 position-relative" action="reserveren" method="post">
         <?php if (isset($error)) {
@@ -37,7 +37,7 @@ if (isset($_POST['submit'])) {
             <input type="date" class="form-control" id="startdatum" name="startdatum" placeholder="Startdatum">
         </div>
         <div class="form-group mt-2">
-            <label for="tocht">Tocht:</label>
+            <label for="tocht">Criteria:</label>
             <select class="form-select" aria-label="Select tocht" id="tocht" name="tochtID">
                 <?php foreach ($db->getTochten() as $tocht) { ?>
                     <option value="<?php echo $tocht->getID(); ?>">
@@ -64,8 +64,8 @@ if (isset($_POST['submit'])) {
         function getFile(id) {
             switch (id) {
                 <?php
-                foreach ($db->getTochten() as $tocht) {
-                    echo "case " . $tocht->getID() . ":\n";
+                foreach ($db->getCriterium() as $criterium) {
+                    echo "case " . $criterium->getBeschrijving() . ":\n";
                     echo "return \"" . $tocht->getRoute() . "\";\n";
                 }
                 ?>

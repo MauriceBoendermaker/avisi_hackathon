@@ -13,17 +13,10 @@
 										wat dit inhoud is dat de huidige examens vervangen zullen worden met trajecten van 10 weken
 										waarin de voortgang en zaken ten ale tijden duidelijk zijn voor zowel docetn als student zelf
 									</p>
-									<h4>Adventure</h4>
+									<h4>Criteria</h4>
 									<p>
-										uitleg over learnflow
-									</p>
-									<h4>Boekingen</h4>
-									<p>
-										uitleg over learnflow
-									</p>
-									<h4>Reisondersteuning</h4>
-									<p>
-										uitleg over learnflow
+										als student kies je zelf aan welke criteria je wil gaan werken tijdens een periode.
+										uiteindelijk moet je alle criteria 3 keer gehaald hebben met niveau expert-voldoende.
 									</p>
 									<p>
 										<i>
@@ -33,13 +26,13 @@
 											&nbsp;&nbsp;&nbsp;&nbsp;We waren erg blij met de assistentie van LearnFlow!
 											<i class="fa-solid fa-quote-right"></i>
 										</i>
-									<h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Max en Ine uit Voorthuizen</h5>
+									<h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Studenten en docenten van RijnIjssel</h5>
 									</p>
 								</div>
 								<div class="col-sm">
 									<div class="text-center">
-										<img src="../loes.jpg" class="rounded" alt="Eigenaresse Loes de Korte" width="348.75" height="391.5">
-										<p>Eigenaresse Loes de Korte</p>
+										<img src="../loes.jpg" class="rounded" alt="Rijnijssel" width="348.75" height="391.5">
+										<p>Rijnijssel</p>
 									</div>
 									<div class='container1'>
 										<div class='img background-img'></div>

@@ -118,7 +118,7 @@ switch ($view) {
 		break;
 	default:
 	?>
-		<h3>Boeking Docent</h3>
+		<h3>Project starten</h3>
 		<?php
 		$boekingen = $db->getBoekingenByDocentID($_SESSION['id']); //$_SESSION['docent_id']
 		if (count($boekingen) == 0) {
@@ -126,7 +126,7 @@ switch ($view) {
 			<div class="alert alert-info mt-2" role="alert">
 				<i class="fa fa-info-circle" aria-hidden="true"></i>
 				<span class="sr-only">Error:</span>
-				U heeft nog geen boekingen.
+				Je bent nog niet met een project bezig.
 			</div>
 		<?php } else { ?>
 			<table>
