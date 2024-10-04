@@ -26,7 +26,7 @@ function endsWith($string, ...$endString)
 //		exit;
 //	}
 //	if ($_SESSION['rechten']['read'] == true) {
-//		header('Location: ../boekingen');
+//		header('Location: ../projecten');
 //		exit;
 //	}
 //}

@@ -1,7 +1,7 @@
 <?php include "./include/nav_docent.php"; ?>
 <?php
 $db = new database\Database($db_host, $db_user, $db_pass, $db_name, $db_port);
-//$boekingen = $db->getBoekingenByDocentID(0); //$_SESSION['docent_id']
+//$projecten = $db->getProjectenByDocentID(0); //$_SESSION['docent_id']
 if (isset($_POST['submit'])) {
     // verify form data
     $startdatum = $_POST['startdatum'];
@@ -12,15 +12,15 @@ if (isset($_POST['submit'])) {
     else {
         $tocht = intval($tocht);
 
-        $boeking = new database\Boeking(null, $startdatum, null, $tocht, $_SESSION['id'], 1, null);
-        $db->applyBoeking($boeking);
+        $project = new database\Project(null, $startdatum, null, $tocht, $_SESSION['id'], 1, null);
+        $db->applyProject($project);
 
-        header("Location: boekingen");
+        header("Location: projecten");
         exit;
     }
 }
 ?>
-<h3>Boeking Reserveren</h3>
+<h3>Project Reserveren</h3>
 <div class="row">
     <form class="col-md-7 h-100 position-relative" action="reserveren" method="post">
         <?php if (isset($error)) {
@@ -39,16 +39,16 @@ if (isset($_POST['submit'])) {
         <div class="form-group mt-2">
             <label for="tocht">Tocht:</label>
             <select class="form-select" aria-label="Select tocht" id="tocht" name="tochtID">
-                <?php foreach ($db->getTochten() as $tocht) { ?>
+                <?php foreach ($db->getCriteria() as $tocht) { ?>
                     <option value="<?php echo $tocht->getID(); ?>">
-                        <?php echo $tocht->getOmschrijving() . " (" . $tocht->getAantalDagen() . " dagen)"; ?>
+                        <?php echo $tocht->getBeschrijving(); ?>
                     <?php } ?>
             </select>
         </div>
         <!-- submit button -->
         <div class="position-absolute bottom-0 right-0 pb-2">
-            <button type="submit" name="submit" class="btn btn-primary mt-3">Boeking reserveren</button>
-            <a href="boekingen"><button type="button" class="btn btn-primary mt-3">Terug</button></a>
+            <button type="submit" name="submit" class="btn btn-primary mt-3">Project reserveren</button>
+            <a href="projecten"><button type="button" class="btn btn-primary mt-3">Terug</button></a>
         </div>
     </form>
     <div class="col-md-5">
@@ -64,7 +64,7 @@ if (isset($_POST['submit'])) {
         function getFile(id) {
             switch (id) {
                 <?php
-                foreach ($db->getTochten() as $tocht) {
+                foreach ($db->getCriteria() as $tocht) {
                     echo "case " . $tocht->getID() . ":\n";
                     echo "return \"" . $tocht->getRoute() . "\";\n";
                 }

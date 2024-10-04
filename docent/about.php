@@ -17,7 +17,7 @@
 									<p>
 										uitleg over learnflow
 									</p>
-									<h4>Boekingen</h4>
+									<h4>Projecten</h4>
 									<p>
 										uitleg over learnflow
 									</p>

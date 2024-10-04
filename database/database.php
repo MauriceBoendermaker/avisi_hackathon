@@ -2,7 +2,7 @@
 
 namespace database;
 
-require_once 'boeking.php';
+require_once 'projecten.php';
 require_once 'student.php';
 require_once 'docent.php';
 require_once 'overnachting.php';
@@ -52,62 +52,62 @@ class Database
         $this->db->close();
     }
 
-    // boekingen
+    // projecten
     // ID INT
     // StartDatum DATE
     // PINCode INT
-    // FKtochtenID INT (foreign key)
+    // FKcriteriumID INT (foreign key)
     // FKDocentenID INT (foreign key)
     // FKstatussenID INT (foreign key)
-    public function getBoekingen()
+    public function getProjecten()
     {
         $this->connect();
-        $result = $this->db->query("SELECT * FROM boekingen");
-        $boekingen = array();
+        $result = $this->db->query("SELECT * FROM projecten");
+        $projecten = array();
         while ($row = $result->fetch_assoc()) {
-            $boekingen[] = new Boeking($row["ID"], $row["StartDatum"], $row["PINCode"], $this->getTochtByID($row["FKtochtenID"]), $this->getDocentByID($row["FKdocentenID"]), $this->getStatusByID($row["FKstatussenID"]), !isset($row["FKtrackerID"]) ? null : $this->getTrackerByID($row["FKtrackerID"]));
+            $projecten[] = new Project($row["ID"], $row["StartDatum"], $row["PINCode"], $this->getCriteriumByID($row["FKtochtenID"]), $this->getDocentByID($row["FKdocentenID"]), $this->getStatusByID($row["FKstatussenID"]), !isset($row["FKtrackerID"]) ? null : $this->getTrackerByID($row["FKtrackerID"]));
         }
-        return $boekingen;
+        return $projecten;
     }
 
-    public function getBoekingByID($id)
+    public function getProjectByID($id)
     {
         $this->connect();
-        $result = $this->db->query("SELECT * FROM boekingen WHERE ID = $id");
+        $result = $this->db->query("SELECT * FROM projecten WHERE ID = $id");
         // check if result is empty
         $row = $result->fetch_assoc();
         if (is_null($row)) return null;
-        return new Boeking($row["ID"], $row["StartDatum"], $row["PINCode"], $this->getTochtByID($row["FKtochtenID"]), $this->getDocentByID($row["FKdocentenID"]), $this->getStatusByID($row["FKstatussenID"]), !isset($row["FKtrackerID"]) ? null : $this->getTrackerByID($row["FKtrackerID"]));
+        return new Project($row["ID"], $row["StartDatum"], $row["PINCode"], $this->getCriteriumByID($row["FKtochtenID"]), $this->getDocentByID($row["FKdocentenID"]), $this->getStatusByID($row["FKstatussenID"]), !isset($row["FKtrackerID"]) ? null : $this->getTrackerByID($row["FKtrackerID"]));
     }
 
-    public function getBoekingenByDocentID($id)
+    public function getProjectenByDocentID($id)
     {
         $this->connect();
-        $result = $this->db->query("SELECT * FROM boekingen WHERE FKdocentenID = $id");
-        $boekingen = array();
+        $result = $this->db->query("SELECT * FROM projecten WHERE FKdocentenID = $id");
+        $projecten = array();
         while ($row = $result->fetch_assoc()) {
-            $boekingen[] = new Boeking($row["ID"], $row["StartDatum"], $row["PINCode"], $this->getTochtByID($row["FKtochtenID"]), $this->getDocentByID($row["FKdocentenID"]), $this->getStatusByID($row["FKstatussenID"]), !isset($row["FKtrackerID"]) ? null : $this->getTrackerByID($row["FKtrackerID"]));
+            $projecten[] = new Project($row["ID"], $row["StartDatum"], $row["PINCode"], $this->getCriteriumByID($row["FKtochtenID"]), $this->getDocentByID($row["FKdocentenID"]), $this->getStatusByID($row["FKstatussenID"]), !isset($row["FKtrackerID"]) ? null : $this->getTrackerByID($row["FKtrackerID"]));
         }
-        return $boekingen;
+        return $projecten;
     }
 
-    public function getBoekingenByStatusID($id)
+    public function getProjectenByStatusID($id)
     {
         $this->connect();
-        $result = $this->db->query("SELECT * FROM boekingen WHERE FKstatussenID = $id");
-        $boekingen = array();
+        $result = $this->db->query("SELECT * FROM projecten WHERE FKstatussenID = $id");
+        $projecten = array();
         while ($row = $result->fetch_assoc()) {
-            $boekingen[] = new Boeking($row["ID"], $row["StartDatum"], $row["PINCode"], $this->getTochtByID($row["FKtochtenID"]), $this->getDocentByID($row["FKdocentenID"]), $this->getStatusByID($row["FKstatussenID"]), !isset($row["FKtrackerID"]) ? null : $this->getTrackerByID($row["FKtrackerID"]));
+            $projecten[] = new Project($row["ID"], $row["StartDatum"], $row["PINCode"], $this->getCriteriumByID($row["FKtochtenID"]), $this->getDocentByID($row["FKdocentenID"]), $this->getStatusByID($row["FKstatussenID"]), !isset($row["FKtrackerID"]) ? null : $this->getTrackerByID($row["FKtrackerID"]));
         }
-        return $boekingen;
+        return $projecten;
     }
 
-    public function setBoeking($id, $startDatum, $pinCode, $fkTochtenID, $fkDocentenID, $fkStatussenID, $fkTrackersID)
+    public function setProject($id, $startDatum, $pinCode, $fkTochtenID, $fkDocentenID, $fkStatussenID, $fkTrackersID)
     {
         $this->connect();
 
         if (is_null($id)) {
-            $query = "INSERT INTO boekingen (StartDatum, FKtochtenID, FKdocentenID, FKstatussenID";
+            $query = "INSERT INTO projecten (StartDatum, FKtochtenID, FKdocentenID, FKstatussenID";
             if (!is_null($pinCode))
                 $query .= ", PINCode";
             if (!is_null($fkTrackersID))
@@ -123,7 +123,7 @@ class Database
 
             $result = $this->db->query($query);
         } else {
-            $query = "UPDATE boekingen SET StartDatum = '$startDatum', FKtochtenID = '$fkTochtenID', FKdocentenID = '$fkDocentenID', FKstatussenID = '$fkStatussenID'";
+            $query = "UPDATE projecten SET StartDatum = '$startDatum', FKtochtenID = '$fkTochtenID', FKdocentenID = '$fkDocentenID', FKstatussenID = '$fkStatussenID'";
             if (!is_null($pinCode))
                 $query .= ", PINCode = '$pinCode'";
             if (!is_null($fkTrackersID))
@@ -134,35 +134,35 @@ class Database
         }
     }
 
-    public function applyBoeking($boeking, $new = false)
+    public function applyProject($project, $new = false)
     {
-        $tocht = $boeking->getTocht();
+        $tocht = $project->getCriterium();
         if ($tocht instanceof Tocht) $tocht = $tocht->getID();
 
-        $docent = $boeking->getDocent();
+        $docent = $project->getDocent();
         if ($docent instanceof Docent) $docent = $docent->getID();
 
-        $status = $boeking->getStatus();
+        $status = $project->getStatus();
         if ($status instanceof Status) $status = $status->getID();
 
-        $tracker = $boeking->getTracker();
+        $tracker = $project->getTracker();
         if ($tracker instanceof Tracker) $tracker = $tracker->getID();
 
-        $docent = $boeking->getDocent();
+        $docent = $project->getDocent();
         if (!is_numeric($docent)) $docent = $docent->getID();
 
-        $this->setBoeking($new ? null : $boeking->getID(), $boeking->getStartDatum(), $boeking->getPINCode(), $tocht, $docent, $status, $tracker);
+        $this->setProject($new ? null : $project->getID(), $project->getStartDatum(), $project->getPINCode(), $tocht, $docent, $status, $tracker);
 
         return;
     }
 
-    public function deleteBoeking($id)
+    public function deleteProject($id)
     {
         $this->connect();
-        $boeking = $this->getBoekingByID($id);
-        if ($boeking != null && $boeking->getTracker() != null)
-            $result = $this->db->query("DELETE FROM trackers WHERE ID = ".$boeking->getTracker()->getID());
-        $result = $this->db->query("DELETE FROM boekingen WHERE ID = $id");
+        $project = $this->getProjectByID($id);
+        if ($project != null && $project->getTracker() != null)
+            $result = $this->db->query("DELETE FROM trackers WHERE ID = ".$project->getTracker()->getID());
+        $result = $this->db->query("DELETE FROM projecten WHERE ID = $id");
     }
 
     // studenten
@@ -329,7 +329,7 @@ class Database
 
     // overnachtingen
     // ID INT
-    // FKboekingenID INT (foreign key)
+    // FKprojectenID INT (foreign key)
     // FKherbergenID INT (foreign key)
     // FKstatussenID INT (foreign key)
     public function getOvernachtingen()
@@ -338,7 +338,7 @@ class Database
         $result = $this->db->query("SELECT * FROM overnachtingen");
         $overnachtingen = array();
         while ($row = $result->fetch_assoc()) {
-            $overnachtingen[] = new Overnachting($row["ID"], $row["FKboekingenID"], $row["FKherbergenID"], $row["FKstatussenID"]);
+            $overnachtingen[] = new Overnachting($row["ID"], $row["FKprojectenID"], $row["FKherbergenID"], $row["FKstatussenID"]);
         }
         return $overnachtingen;
     }
@@ -349,16 +349,16 @@ class Database
         $result = $this->db->query("SELECT * FROM overnachtingen WHERE ID = $id");
         $row = $result->fetch_assoc();
         if (is_null($row)) return null;
-        return new Overnachting($row["ID"], $this->getBoekingByID($row["FKboekingenID"]), $this->getHerbergByID($row["FKherbergenID"]), $this->getStatusByID($row["FKstatussenID"]));
+        return new Overnachting($row["ID"], $this->getProjectByID($row["FKprojectenID"]), $this->getHerbergByID($row["FKherbergenID"]), $this->getStatusByID($row["FKstatussenID"]));
     }
 
-    public function getOvernachtingenByBoekingID($id)
+    public function getOvernachtingenByProjectID($id)
     {
         $this->connect();
-        $result = $this->db->query("SELECT * FROM overnachtingen WHERE FKboekingenID = $id");
+        $result = $this->db->query("SELECT * FROM overnachtingen WHERE FKprojectenID = $id");
         $overnachtingen = array();
         while ($row = $result->fetch_assoc()) {
-            $overnachtingen[] = new Overnachting($row["ID"], $this->getBoekingByID($row["FKboekingenID"]), $this->getHerbergByID($row["FKherbergenID"]), $this->getStatusByID($row["FKstatussenID"]));
+            $overnachtingen[] = new Overnachting($row["ID"], $this->getProjectByID($row["FKprojectenID"]), $this->getHerbergByID($row["FKherbergenID"]), $this->getStatusByID($row["FKstatussenID"]));
         }
         return $overnachtingen;
     }
@@ -369,24 +369,24 @@ class Database
         $result = $this->db->query("SELECT * FROM overnachtingen WHERE FKherbergenID = $id");
         $overnachtingen = array();
         while ($row = $result->fetch_assoc()) {
-            $overnachtingen[] = new Overnachting($row["ID"], $this->getBoekingByID($row["FKboekingenID"]), $this->getHerbergByID($row["FKherbergenID"]), $this->getStatusByID($row["FKstatussenID"]));
+            $overnachtingen[] = new Overnachting($row["ID"], $this->getProjectByID($row["FKprojectenID"]), $this->getHerbergByID($row["FKherbergenID"]), $this->getStatusByID($row["FKstatussenID"]));
         }
         return $overnachtingen;
     }
 
-    public function setOvernachting($id, $fkBoekingenID, $fkHerbergenID, $fkStatussenID)
+    public function setOvernachting($id, $fkProjectenID, $fkHerbergenID, $fkStatussenID)
     {
         $this->connect();
         if (is_null($id)) {
-            $result = $this->db->query("INSERT INTO overnachtingen (FKboekingenID, FKherbergenID, FKstatussenID) VALUES ('$fkBoekingenID', '$fkHerbergenID', '$fkStatussenID')");
+            $result = $this->db->query("INSERT INTO overnachtingen (FKprojectenID, FKherbergenID, FKstatussenID) VALUES ('$fkProjectenID', '$fkHerbergenID', '$fkStatussenID')");
         } else {
-            $result = $this->db->query("UPDATE overnachtingen SET FKboekingenID = '$fkBoekingenID', FKherbergenID = '$fkHerbergenID', FKstatussenID = '$fkStatussenID' WHERE ID = $id");
+            $result = $this->db->query("UPDATE overnachtingen SET FKprojectenID = '$fkProjectenID', FKherbergenID = '$fkHerbergenID', FKstatussenID = '$fkStatussenID' WHERE ID = $id");
         }
     }
 
     public function applyOvernachting($overnachting, $new = false)
     {
-        $this->setOvernachting($new ? null : $overnachting->getID(), $overnachting->getBoeking()->getID(), $overnachting->getHerberg()->getID(), $overnachting->getStatus()->getID());
+        $this->setOvernachting($new ? null : $overnachting->getID(), $overnachting->getProject()->getID(), $overnachting->getHerberg()->getID(), $overnachting->getStatus()->getID());
     }
 
     public function deleteOvernachting($id)
@@ -397,7 +397,7 @@ class Database
 
     // pauzeplaatsen
     // ID INT
-    // FKboekingenID INT (foreign key)
+    // FKprojectenID INT (foreign key)
     // FKbeheerdersID INT (foreign key)
     // FKstatussenID INT (foreign key)
 
@@ -407,7 +407,7 @@ class Database
         $result = $this->db->query("SELECT * FROM pauzeplaatsen");
         $pauzeplaatsen = array();
         while ($row = $result->fetch_assoc()) {
-            $pauzeplaatsen[] = new Pauzeplaats($row["ID"], $this->getBoekingByID($row["FKboekingenID"]), $this->getBeheerderByID($row["FKbeheerdersID"]), $this->getStatusByID($row["FKstatussenID"]));
+            $pauzeplaatsen[] = new Pauzeplaats($row["ID"], $this->getProjectByID($row["FKprojectenID"]), $this->getBeheerderByID($row["FKbeheerdersID"]), $this->getStatusByID($row["FKstatussenID"]));
         }
         return $pauzeplaatsen;
     }
@@ -418,44 +418,44 @@ class Database
         $result = $this->db->query("SELECT * FROM pauzeplaatsen WHERE ID = $id");
         $row = $result->fetch_assoc();
         if (is_null($row)) return null;
-        return new Pauzeplaats($row["ID"], $this->getBoekingByID($row["FKboekingenID"]), $this->getBeheerderByID($row["FKbeheerdersID"]), $this->getStatusByID($row["FKstatussenID"]));
+        return new Pauzeplaats($row["ID"], $this->getProjectByID($row["FKprojectenID"]), $this->getBeheerderByID($row["FKbeheerdersID"]), $this->getStatusByID($row["FKstatussenID"]));
     }
 
-    public function getPauzeplaatsenByBoekingID($id)
+    public function getPauzeplaatsenByProjectID($id)
     {
         $this->connect();
-        $result = $this->db->query("SELECT * FROM pauzeplaatsen WHERE FKboekingenID = $id");
+        $result = $this->db->query("SELECT * FROM pauzeplaatsen WHERE FKprojectenID = $id");
         $pauzeplaatsen = array();
         while ($row = $result->fetch_assoc()) {
-            $pauzeplaatsen[] = new Pauzeplaats($row["ID"], $this->getBoekingByID($row["FKboekingenID"]), $this->getBeheerderByID($row["FKbeheerdersID"]), $this->getStatusByID($row["FKstatussenID"]));
+            $pauzeplaatsen[] = new Pauzeplaats($row["ID"], $this->getProjectByID($row["FKprojectenID"]), $this->getBeheerderByID($row["FKbeheerdersID"]), $this->getStatusByID($row["FKstatussenID"]));
         }
         return $pauzeplaatsen;
     }
 
-    public function getPauzeplaatsenByBeheerderID($id, $boekingID)
+    public function getPauzeplaatsenByBeheerderID($id, $projectID)
     {
         $this->connect();
-        $result = $this->db->query("SELECT * FROM pauzeplaatsen WHERE FKbeheerdersID = $id AND FKboekingenID = $boekingID");
+        $result = $this->db->query("SELECT * FROM pauzeplaatsen WHERE FKbeheerdersID = $id AND FKprojectenID = $projectID");
         $pauzeplaatsen = array();
         while ($row = $result->fetch_assoc()) {
-            $pauzeplaatsen[] = new Pauzeplaats($row["ID"], $this->getBoekingByID($row["FKboekingenID"]), $this->getBeheerderByID($row["FKbeheerdersID"]), $this->getStatusByID($row["FKstatussenID"]));
+            $pauzeplaatsen[] = new Pauzeplaats($row["ID"], $this->getProjectByID($row["FKprojectenID"]), $this->getBeheerderByID($row["FKbeheerdersID"]), $this->getStatusByID($row["FKstatussenID"]));
         }
         return $pauzeplaatsen;
     }
 
-    public function setPauzeplaats($id, $fkBoekingenID, $fkBeheerdersID, $fkStatussenID)
+    public function setPauzeplaats($id, $fkProjectenID, $fkBeheerdersID, $fkStatussenID)
     {
         $this->connect();
         if (is_null($id)) {
-            $result = $this->db->query("INSERT INTO pauzeplaatsen (FKboekingenID, FKbeheerdersID, FKstatussenID) VALUES ('$fkBoekingenID', '$fkBeheerdersID', '$fkStatussenID')");
+            $result = $this->db->query("INSERT INTO pauzeplaatsen (FKprojectenID, FKbeheerdersID, FKstatussenID) VALUES ('$fkProjectenID', '$fkBeheerdersID', '$fkStatussenID')");
         } else {
-            $result = $this->db->query("UPDATE pauzeplaatsen SET FKboekingenID = '$fkBoekingenID', FKbeheerdersID = '$fkBeheerdersID', FKstatussenID = '$fkStatussenID' WHERE ID = $id");
+            $result = $this->db->query("UPDATE pauzeplaatsen SET FKprojectenID = '$fkProjectenID', FKbeheerdersID = '$fkBeheerdersID', FKstatussenID = '$fkStatussenID' WHERE ID = $id");
         }
     }
 
     public function applyPauzeplaats($pauzeplaats, $new = false)
     {
-        $this->setPauzeplaats($new ? null : $pauzeplaats->getID(), $pauzeplaats->getFKboekingenID(), $pauzeplaats->getFKbeheerdersID(), $pauzeplaats->getFKstatussenID());
+        $this->setPauzeplaats($new ? null : $pauzeplaats->getID(), $pauzeplaats->getFKprojectenID(), $pauzeplaats->getFKbeheerdersID(), $pauzeplaats->getFKstatussenID());
     }
 
     public function deletePauzeplaats($id)
@@ -561,50 +561,48 @@ class Database
         $result = $this->db->query("DELETE FROM statussen WHERE ID = $id");
     }
 
-    // tochten
+    // criteria
     // ID INT
-    // Omschrijving VARCHAR(40)
-    // Route VARCHAR(50)
-    // AantalDagen INT
-    public function getTochten()
+    // Beschrijving VARCHAR(40)
+    public function getCriteria()
     {
         $this->connect();
-        $result = $this->db->query("SELECT * FROM tochten");
-        $tochten = array();
+        $result = $this->db->query("SELECT * FROM criteria");
+        $criteria = array();
         while ($row = $result->fetch_assoc()) {
-            $tochten[] = new Tocht($row["ID"], $row["Omschrijving"], $row["Route"], $row["AantalDagen"]);
+            $criteria[] = new Criterium($row["ID"], $row["Beschrijving"]);
         }
-        return $tochten;
+        return $criteria;
     }
 
-    public function getTochtByID($id)
+    public function getCriteriumByID($id)
     {
         $this->connect();
-        $result = $this->db->query("SELECT * FROM tochten WHERE ID = $id");
+        $result = $this->db->query("SELECT * FROM criteria WHERE ID = $id");
         $row = $result->fetch_assoc();
         if (is_null($row)) return null;
-        return new Tocht($row["ID"], $row["Omschrijving"], $row["Route"], $row["AantalDagen"]);
+        return new Tocht($row["ID"], $row["Beschrijving"]);
     }
 
-    public function setTocht($id, $omschrijving, $route, $aantaldagen)
+    public function setCriterium($id, $beschrijving)
     {
         $this->connect();
         if (is_null($id)) {
-            $result = $this->db->query("INSERT INTO tochten (Omschrijving, Route, AantalDagen) VALUES ('$omschrijving', '$route', '$aantaldagen')");
+            $result = $this->db->query("INSERT INTO criteria (Beschrijving) VALUES ('$beschrijving')");
         } else {
-            $result = $this->db->query("UPDATE tochten SET Omschrijving = '$omschrijving', Route = '$route', AantalDagen = '$aantaldagen' WHERE ID = $id");
+            $result = $this->db->query("UPDATE criteria SET Beschrijving = '$beschrijving' WHERE ID = $id");
         }
     }
 
-    public function applyTocht($tocht, $new = false)
+    public function applyCriterium($tocht, $new = false)
     {
-        $this->setTocht($new ? null : $tocht->getID(), $tocht->getOmschrijving(), $tocht->getRoute(), $tocht->getAantalDagen());
+        $this->setCriterium($new ? null : $tocht->getID(), $tocht->getBeschrijving());
     }
 
-    public function deleteTocht($id)
+    public function deleteCriteria($id)
     {
         $this->connect();
-        $result = $this->db->query("DELETE FROM tochten WHERE ID = $id");
+        $result = $this->db->query("DELETE FROM criteria WHERE ID = $id");
     }
 
     // trackers

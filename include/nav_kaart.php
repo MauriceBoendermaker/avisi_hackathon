@@ -4,7 +4,7 @@
 		<h2>LearnFlow RijnIJssel Administrative Tools</h2>
 		<ul class="nav nav-tabs">
 			<li class="nav-item"><a class="nav-link" aria-current="page" href="index">Welcome</a></li>
-			<li class="nav-item"><a class="nav-link" href="boekingen">Boekingen</a></li>
+			<li class="nav-item"><a class="nav-link" href="projecten">Projecten</a></li>
 			<li class="nav-item"><a class="nav-link active" href="gasten">Beheer</a></li>
 			<li class="nav-item"><a class="nav-link active" href="kaart">Kaart</a></li>
 			<li class="nav-item ms-auto"><a class="nav-link text-danger" href="logout">Logout</a></li>

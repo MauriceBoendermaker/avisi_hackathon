@@ -14,8 +14,8 @@ switch(sPage) {
     case "beheerders":
         document.getElementById("nav-beheerders").classList.add('active');
         break;
-    case "tochten":
-        document.getElementById("nav-tochten").classList.add('active');
+    case "criteria":
+        document.getElementById("nav-criteria").classList.add('active');
         break;
     case "statussen":
         document.getElementById("nav-statussen").classList.add('active');

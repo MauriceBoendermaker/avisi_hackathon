@@ -44,7 +44,7 @@ if (isset($_POST['delete']) && isset($id)) {
 
 function home()
 {
-	header('Location: boekingen');
+	header('Location: projecten');
 	exit();
 }
 $docent = $db->getDocentByID($id);

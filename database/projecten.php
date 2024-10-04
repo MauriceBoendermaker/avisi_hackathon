@@ -4,22 +4,22 @@
 namespace database;
 
 
-class Boeking
+class Project
 {
 	private $id;
 	private $startDatum;
 	private $pincode;
-	private $tocht;
+	private $criterium;
 	private $docent;
 	private $status;
 	private $tracker;
 
-	public function __construct($id, $startDatum, $pincode, $tocht, $docent, $status, $tracker)
+	public function __construct($id, $startDatum, $pincode, $criterium, $docent, $status, $tracker)
 	{
 		$this->id = $id;
 		$this->startDatum = $startDatum;
 		$this->pincode = $pincode;
-		$this->tocht = $tocht;
+		$this->criterium = $criterium;
 		$this->docent = $docent;
 		$this->status = $status;
 		$this->tracker = $tracker;
@@ -37,9 +37,9 @@ class Boeking
 		return $this->startDatum;
 	}
 
-	public function getEindDatum($boeking)
+	public function getEindDatum($project)
 	{
-		return date('Y-m-d', strtotime($boeking->getStartdatum() . ' + ' . $boeking->getTocht()->getAantalDagen() . ' days'));
+		return date('Y-m-d', strtotime($project->getStartdatum()));
 	}
 
 	public function getPincode()
@@ -47,9 +47,9 @@ class Boeking
 		return $this->pincode;
 	}
 
-	public function getTocht()
+	public function getCriterium()
 	{
-		return $this->tocht;
+		return $this->criterium;
 	}
 
 	public function getDocent()

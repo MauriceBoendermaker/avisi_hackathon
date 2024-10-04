@@ -3,7 +3,7 @@
 <!-- debug print database Tochten -->
 <?php
 $db = new database\Database($db_host, $db_user, $db_pass, $db_name, $db_port);
-$tochten = $db->getTochten();
+$tochten = $db->getCriteria();
 
 // tochten
 // ID INT
@@ -46,7 +46,7 @@ function home()
 
 switch ($view) {
 	case 'edit':
-		$tocht = $db->getTochtByID($id);
+		$tocht = $db->getCriteriumByID($id);
 ?>
 		<h3>Tocht gegevens wijzigen</h3>
 		<form action="" method="post">
@@ -70,7 +70,7 @@ switch ($view) {
 	<?php
 		break;
 	case 'delete':
-		$tocht = $db->getTochtByID($id);
+		$tocht = $db->getCriteriumByID($id);
 	?>
 		<h3>Tocht verwijderen</h3>
 		<form action="" method="post">

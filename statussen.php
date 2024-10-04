@@ -128,7 +128,7 @@ switch ($view) {
 			</div>
 			<div class="form-group mt-2">
 				<label for="status">Status:</label>
-				<input type='text' class='form-control' id='status' name='status' placeholder='Status omschrijving'>
+				<input type='text' class='form-control' id='status' name='status' placeholder='Status beschrijving'>
 			</div>
 			<div class="form-group mt-2">
 				<label for="verwijderbaar">Verwijderbaar:</label>
