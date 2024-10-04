@@ -21,7 +21,7 @@ namespace database;
         private $gebruikersrechten;
         private $gewijzigd;
     
-        public function __construct($id, $naam, $email, $wachtwoord, $gebruikersrechten, $gewijzigd)
+        public function __construct($id, $naam, $email, $wachtwoord, $gebruikersrechten)
         {
             $this->id = $id;
             $this->naam = $naam;
