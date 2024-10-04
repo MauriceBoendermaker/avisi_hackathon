@@ -1,6 +1,6 @@
 <?php
 
-use database\Restaurant;
+use database\Beheerder;
 
 if (isset($_POST['back'])) {
     home();
@@ -26,28 +26,28 @@ $db = new database\Database($db_host, $db_user, $db_pass, $db_name, $db_port);
 
 $boekingen = $db->getBoekingByID($id);
 $pauzeplaatsen = $db->getPauzeplaatsenByBoekingID($id);
-$restaurants = $db->getRestaurants();
+$beheerders = $db->getBeheerders();
 
 if (isset($_POST['save']) && isset($_POST['statusID'])) {
     $pauzeplaats = $db->getPauzeplaatsByID($_POST['id']);
-    $db->setPauzeplaats($pauzeplaats->getID(), $pauzeplaats->getBoeking()->getID(), $pauzeplaats->getRestaurant()->getID(), $_POST['statusID']);
+    $db->setPauzeplaats($pauzeplaats->getID(), $pauzeplaats->getBoeking()->getID(), $pauzeplaats->getBeheerder()->getID(), $_POST['statusID']);
     header('Location: pauzeplaatsen_beheer?id=' . $id);
 }
 else if (isset($_POST['save'])) {
-    array_map(function ($restaurant) use ($db, $id) {
-        if (isset($_POST['restaurants']) && in_array($restaurant->getID(), $_POST['restaurants'], false)) {
-            // check if pauzeplaatsen already has an entry with this restaurant
-            $pauzeplaats = $db->getPauzeplaatsenByRestaurantID($restaurant->getID(), $id);
+    array_map(function ($beheerder) use ($db, $id) {
+        if (isset($_POST['beheerders']) && in_array($beheerder->getID(), $_POST['beheerders'], false)) {
+            // check if pauzeplaatsen already has an entry with this beheerder
+            $pauzeplaats = $db->getPauzeplaatsenByBeheerderID($beheerder->getID(), $id);
             if (is_null($pauzeplaats) || count($pauzeplaats) == 0) {
-                $db->setPauzeplaats(null, $id, $restaurant->getID(), 1);
+                $db->setPauzeplaats(null, $id, $beheerder->getID(), 1);
             }
         } else {
-            $pauzeplaats = $db->getPauzeplaatsenByRestaurantID($restaurant->getID(), $id);
+            $pauzeplaats = $db->getPauzeplaatsenByBeheerderID($beheerder->getID(), $id);
             if (!is_null($pauzeplaats) && count($pauzeplaats) > 0) {
                 $db->deletePauzeplaats($pauzeplaats[0]->getID());
             }
         }
-    }, $restaurants);
+    }, $beheerders);
     header('Location: pauzeplaatsen_beheer?id=' . $id);
     exit();
 }
@@ -62,12 +62,12 @@ if (isset($edit)) {
     <form action="" method="post">
         <input type="hidden" name="id" value="<?php echo $pauzeplaats->getID(); ?>">
         <div class="form-group mt-2">
-            <label for="restaurant">restaurant:</label>
-            <input type="text" class="form-control" name="" id="restaurant" value="<?php echo $pauzeplaats->getRestaurant()->getNaam(); ?>" disabled>
+            <label for="beheerder">beheerder:</label>
+            <input type="text" class="form-control" name="" id="beheerder" value="<?php echo $pauzeplaats->getBeheerder()->getNaam(); ?>" disabled>
         </div>
         <div class="form-group mt-2">
             <label for="adres">Adres:</label>
-            <input type="text" class="form-control" name="" id="adres" value="<?php echo $pauzeplaats->getRestaurant()->getAdres(); ?>" disabled>
+            <input type="text" class="form-control" name="" id="adres" value="<?php echo $pauzeplaats->getBeheerder()->getAdres(); ?>" disabled>
         </div>
         <div class="form-group mt-2">
             <label for="status">Status:</label>
@@ -130,7 +130,7 @@ if (isset($edit)) {
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Restaurant</th>
+                            <th>Beheerder</th>
                             <th>Adres</th>
                             <th>Status</th>
                             <th></th>
@@ -141,13 +141,13 @@ if (isset($edit)) {
                         $ids = array();
                         if (!is_null($pauzeplaatsen)) {
                             foreach ($pauzeplaatsen as $pauzeplaats) {
-                                array_push($ids, $pauzeplaats->getRestaurant()->getID());
+                                array_push($ids, $pauzeplaats->getBeheerder()->getID());
                         ?>
                                 <tr>
-                                    <input type="hidden" name="restaurants[]" value="<?php echo $pauzeplaats->getRestaurant()->getID(); ?>">
+                                    <input type="hidden" name="beheerders[]" value="<?php echo $pauzeplaats->getBeheerder()->getID(); ?>">
                                     <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                                    <td><?php echo $pauzeplaats->getRestaurant()->getNaam(); ?></td>
-                                    <td class="w-fc"><?php echo $pauzeplaats->getRestaurant()->getAdres(); ?></td>
+                                    <td><?php echo $pauzeplaats->getBeheerder()->getNaam(); ?></td>
+                                    <td class="w-fc"><?php echo $pauzeplaats->getBeheerder()->getAdres(); ?></td>
                                     <td><?php echo $pauzeplaats->getStatus()->getStatus(); ?></td>
                                     <td>
                                         <button type="button" class="float-start addbutton btn btn-primary min-height-0 btn-sm" style="display: none;"><i class="fa-solid fa-plus"></i></button>
@@ -170,21 +170,21 @@ if (isset($edit)) {
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Restaurant</th>
+                            <th>Beheerder</th>
                             <th>Adres</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody id="table2" class="connectedSortable min-height">
                         <?php
-                        foreach ($restaurants as $restaurant) {
-                            if (in_array($restaurant->getID(), $ids)) continue;
+                        foreach ($beheerders as $beheerder) {
+                            if (in_array($beheerder->getID(), $ids)) continue;
                         ?>
                             <tr>
-                                <input type="hidden" name="restaurants[]" value="<?php echo $restaurant->getID(); ?>" disabled>
+                                <input type="hidden" name="beheerders[]" value="<?php echo $beheerder->getID(); ?>" disabled>
                                 <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                                <td><?php echo $restaurant->getNaam(); ?></td>
-                                <td><?php echo $restaurant->getAdres(); ?></td>
+                                <td><?php echo $beheerder->getNaam(); ?></td>
+                                <td><?php echo $beheerder->getAdres(); ?></td>
                                 <td style="display: none;"></td>
                                 <td>
                                     <button type="button" class="float-start addbutton btn btn-primary min-height-0 btn-sm" onclick=""><i class="fa-solid fa-plus"></i></button>

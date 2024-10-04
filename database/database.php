@@ -7,8 +7,8 @@ require_once 'student.php';
 require_once 'docent.php';
 require_once 'overnachting.php';
 require_once 'pauzeplaats.php';
-require_once 'restaurant.php';
-require_once 'status.php';
+require_once 'beheerder.php';
+require_once 'criterium.php';
 require_once 'tocht.php';
 require_once 'tracker.php';
 require_once 'gebruikersrechten.php';
@@ -120,7 +120,7 @@ class Database
                 $query .= ", '$fkTrackersID'";
 
             $query .= ")";
-            
+
             $result = $this->db->query($query);
         } else {
             $query = "UPDATE boekingen SET StartDatum = '$startDatum', FKtochtenID = '$fkTochtenID', FKdocentenID = '$fkDocentenID', FKstatussenID = '$fkStatussenID'";
@@ -398,7 +398,7 @@ class Database
     // pauzeplaatsen
     // ID INT
     // FKboekingenID INT (foreign key)
-    // FKrestaurantsID INT (foreign key)
+    // FKbeheerdersID INT (foreign key)
     // FKstatussenID INT (foreign key)
 
     public function getPauzeplaatsen()
@@ -407,7 +407,7 @@ class Database
         $result = $this->db->query("SELECT * FROM pauzeplaatsen");
         $pauzeplaatsen = array();
         while ($row = $result->fetch_assoc()) {
-            $pauzeplaatsen[] = new Pauzeplaats($row["ID"], $this->getBoekingByID($row["FKboekingenID"]), $this->getRestaurantByID($row["FKrestaurantsID"]), $this->getStatusByID($row["FKstatussenID"]));
+            $pauzeplaatsen[] = new Pauzeplaats($row["ID"], $this->getBoekingByID($row["FKboekingenID"]), $this->getBeheerderByID($row["FKbeheerdersID"]), $this->getStatusByID($row["FKstatussenID"]));
         }
         return $pauzeplaatsen;
     }
@@ -418,7 +418,7 @@ class Database
         $result = $this->db->query("SELECT * FROM pauzeplaatsen WHERE ID = $id");
         $row = $result->fetch_assoc();
         if (is_null($row)) return null;
-        return new Pauzeplaats($row["ID"], $this->getBoekingByID($row["FKboekingenID"]), $this->getRestaurantByID($row["FKrestaurantsID"]), $this->getStatusByID($row["FKstatussenID"]));
+        return new Pauzeplaats($row["ID"], $this->getBoekingByID($row["FKboekingenID"]), $this->getBeheerderByID($row["FKbeheerdersID"]), $this->getStatusByID($row["FKstatussenID"]));
     }
 
     public function getPauzeplaatsenByBoekingID($id)
@@ -427,35 +427,35 @@ class Database
         $result = $this->db->query("SELECT * FROM pauzeplaatsen WHERE FKboekingenID = $id");
         $pauzeplaatsen = array();
         while ($row = $result->fetch_assoc()) {
-            $pauzeplaatsen[] = new Pauzeplaats($row["ID"], $this->getBoekingByID($row["FKboekingenID"]), $this->getRestaurantByID($row["FKrestaurantsID"]), $this->getStatusByID($row["FKstatussenID"]));
+            $pauzeplaatsen[] = new Pauzeplaats($row["ID"], $this->getBoekingByID($row["FKboekingenID"]), $this->getBeheerderByID($row["FKbeheerdersID"]), $this->getStatusByID($row["FKstatussenID"]));
         }
         return $pauzeplaatsen;
     }
 
-    public function getPauzeplaatsenByRestaurantID($id, $boekingID)
+    public function getPauzeplaatsenByBeheerderID($id, $boekingID)
     {
         $this->connect();
-        $result = $this->db->query("SELECT * FROM pauzeplaatsen WHERE FKrestaurantsID = $id AND FKboekingenID = $boekingID");
+        $result = $this->db->query("SELECT * FROM pauzeplaatsen WHERE FKbeheerdersID = $id AND FKboekingenID = $boekingID");
         $pauzeplaatsen = array();
         while ($row = $result->fetch_assoc()) {
-            $pauzeplaatsen[] = new Pauzeplaats($row["ID"], $this->getBoekingByID($row["FKboekingenID"]), $this->getRestaurantByID($row["FKrestaurantsID"]), $this->getStatusByID($row["FKstatussenID"]));
+            $pauzeplaatsen[] = new Pauzeplaats($row["ID"], $this->getBoekingByID($row["FKboekingenID"]), $this->getBeheerderByID($row["FKbeheerdersID"]), $this->getStatusByID($row["FKstatussenID"]));
         }
         return $pauzeplaatsen;
     }
 
-    public function setPauzeplaats($id, $fkBoekingenID, $fkRestaurantsID, $fkStatussenID)
+    public function setPauzeplaats($id, $fkBoekingenID, $fkBeheerdersID, $fkStatussenID)
     {
         $this->connect();
         if (is_null($id)) {
-            $result = $this->db->query("INSERT INTO pauzeplaatsen (FKboekingenID, FKrestaurantsID, FKstatussenID) VALUES ('$fkBoekingenID', '$fkRestaurantsID', '$fkStatussenID')");
+            $result = $this->db->query("INSERT INTO pauzeplaatsen (FKboekingenID, FKbeheerdersID, FKstatussenID) VALUES ('$fkBoekingenID', '$fkBeheerdersID', '$fkStatussenID')");
         } else {
-            $result = $this->db->query("UPDATE pauzeplaatsen SET FKboekingenID = '$fkBoekingenID', FKrestaurantsID = '$fkRestaurantsID', FKstatussenID = '$fkStatussenID' WHERE ID = $id");
+            $result = $this->db->query("UPDATE pauzeplaatsen SET FKboekingenID = '$fkBoekingenID', FKbeheerdersID = '$fkBeheerdersID', FKstatussenID = '$fkStatussenID' WHERE ID = $id");
         }
     }
 
     public function applyPauzeplaats($pauzeplaats, $new = false)
     {
-        $this->setPauzeplaats($new ? null : $pauzeplaats->getID(), $pauzeplaats->getFKboekingenID(), $pauzeplaats->getFKrestaurantsID(), $pauzeplaats->getFKstatussenID());
+        $this->setPauzeplaats($new ? null : $pauzeplaats->getID(), $pauzeplaats->getFKboekingenID(), $pauzeplaats->getFKbeheerdersID(), $pauzeplaats->getFKstatussenID());
     }
 
     public function deletePauzeplaats($id)
@@ -464,7 +464,7 @@ class Database
         $result = $this->db->query("DELETE FROM pauzeplaatsen WHERE ID = $id");
     }
 
-    // restaurants
+    // beheerders
     // ID INT
     // Naam VARCHAR(50)
     // Adres VARCHAR(50)
@@ -472,46 +472,46 @@ class Database
     // Telefoon VARCHAR(20)
     // Coordinaten VARCHAR(20)
     // Gewijzigd TIMESTAMP
-    public function getRestaurants()
+    public function getBeheerders()
     {
         $this->connect();
-        $result = $this->db->query("SELECT * FROM restaurants");
-        $restaurants = array();
+        $result = $this->db->query("SELECT * FROM beheerders");
+        $beheerders = array();
         while ($row = $result->fetch_assoc()) {
-            $restaurants[] = new Restaurant($row["ID"], $row["Naam"], $row["Adres"], $row["Email"], $row["Telefoon"], $row["Coordinaten"], $row["Gewijzigd"]);
+            $beheerders[] = new Beheerder($row["ID"], $row["Naam"], $row["Adres"], $row["Email"], $row["Telefoon"], $row["Coordinaten"], $row["Gewijzigd"]);
         }
-        return $restaurants;
+        return $beheerders;
     }
 
-    public function getRestaurantByID($id)
+    public function getBeheerderByID($id)
     {
         $this->connect();
-        $result = $this->db->query("SELECT * FROM restaurants WHERE ID = $id");
+        $result = $this->db->query("SELECT * FROM beheerders WHERE ID = $id");
         $row = $result->fetch_assoc();
         if (is_null($row)) return null;
-        return new Restaurant($row["ID"], $row["Naam"], $row["Adres"], $row["Email"], $row["Telefoon"], $row["Coordinaten"], $row["Gewijzigd"]);
+        return new Beheerder($row["ID"], $row["Naam"], $row["Adres"], $row["Email"], $row["Telefoon"], $row["Coordinaten"], $row["Gewijzigd"]);
     }
 
-    public function setRestaurant($id, $naam, $adres, $email, $telefoon, $coordinaten, $gewijzigd = null)
+    public function setBeheerder($id, $naam, $adres, $email, $telefoon, $coordinaten, $gewijzigd = null)
     {
         $this->connect();
         if (is_null($gewijzigd) || empty($gewijzigd)) $gewijzigd = date("Y-m-d H:i:s");
         if (is_null($id)) {
-            $result = $this->db->query("INSERT INTO restaurants (Naam, Adres, Email, Telefoon, Coordinaten, Gewijzigd) VALUES ('$naam', '$adres', '$email', '$telefoon', '$coordinaten', '$gewijzigd')");
+            $result = $this->db->query("INSERT INTO beheerders (Naam, Adres, Email, Telefoon, Coordinaten, Gewijzigd) VALUES ('$naam', '$adres', '$email', '$telefoon', '$coordinaten', '$gewijzigd')");
         } else {
-            $result = $this->db->query("UPDATE restaurants SET Naam = '$naam', Adres = '$adres', Email = '$email', Telefoon = '$telefoon', Coordinaten = '$coordinaten', Gewijzigd = '$gewijzigd' WHERE ID = $id");
+            $result = $this->db->query("UPDATE beheerders SET Naam = '$naam', Adres = '$adres', Email = '$email', Telefoon = '$telefoon', Coordinaten = '$coordinaten', Gewijzigd = '$gewijzigd' WHERE ID = $id");
         }
     }
 
-    public function applyRestaurant($restaurant, $new = false)
+    public function applyBeheerder($beheerder, $new = false)
     {
-        $this->setRestaurant($new ? null : $restaurant->getID(), $restaurant->getNaam(), $restaurant->getAdres(), $restaurant->getEmail(), $restaurant->getTelefoon(), $restaurant->getCoordinaten());
+        $this->setBeheerder($new ? null : $beheerder->getID(), $beheerder->getNaam(), $beheerder->getAdres(), $beheerder->getEmail(), $beheerder->getTelefoon(), $beheerder->getCoordinaten());
     }
 
-    public function deleteRestaurant($id)
+    public function deleteBeheerder($id)
     {
         $this->connect();
-        $result = $this->db->query("DELETE FROM restaurants WHERE ID = $id");
+        $result = $this->db->query("DELETE FROM beheerders WHERE ID = $id");
     }
 
     // statussen

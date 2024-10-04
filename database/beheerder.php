@@ -1,16 +1,17 @@
 <?php
 
+
 namespace database;
+    // beheerders
+    // ID INT
+    // Naam VARCHAR(50)
+    // Adres VARCHAR(50)
+    // Email VARCHAR(50)
+    // Telefoon VARCHAR(20)
+    // Coordinaten VARCHAR(20)
+    // Gewijzigd TIMESTAMP
 
-// docenten
-// ID INT
-// Naam VARCHAR(50)
-// Email VARCHAR(100)
-// Afkorting VARCHAR(10)
-// Wachtwoord VARCHAR(100)
-// Gebruikersrechten INT
-
-class Docent
+    class Beheerder
     {
         private $id;
         private $naam;
@@ -25,7 +26,7 @@ class Docent
             $this->id = $id;
             $this->naam = $naam;
             $this->email = $email;
-            $name_parts = explode(" ", $naam);
+            $name_parts = explode(" ", $naam); // $full_name ??
 
             // Afkorting van docent craften
             $first_name = $name_parts[0];
