@@ -168,8 +168,6 @@ $router->all('/student/boekingen', function () {
 	include 'docent/boekingen.php';
 });
 
-
-
 $router->get('api/markers.json', function () {
 	include 'api/markers.php';
 });
