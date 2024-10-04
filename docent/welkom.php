@@ -12,6 +12,8 @@
                         <span class="sr-only">Info:</span>
 	                    LearnFlow RijnIjssel is een tool die kwalificerend leren ondersteunt.
                     </div>
+
+
 <?php include "include/footer.php" ?>
         </div>
     </div>

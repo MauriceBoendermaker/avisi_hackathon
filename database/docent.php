@@ -15,17 +15,18 @@ class Docent
 	private $id;
 	private $naam;
 	private $email;
-	private $afkorting;
+	// private $afkorting;
 	private $wachtwoord;
 	private $gebruikersrechten;
+	private $gewijzigd;
 
-	public function __construct($id, $naam, $email, $afkorting, $wachtwoord, $gebruikersrechten)
+	public function __construct($id, $naam, $email, $wachtwoord, $gebruikersrechten, $gewijzigd)
 	{
 		$this->id = $id;
 		$this->naam = $naam;
 		$this->email = $email;
-		$this->afkorting = $afkorting;
-		$this->wachtwoord = "docent"; // $wachtwoord;
+		// $this->afkorting = $afkorting;
+		$this->wachtwoord = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"; // $wachtwoord;
 		$this->gebruikersrechten = $gebruikersrechten;
 	}
 
@@ -54,9 +55,15 @@ class Docent
 		return $this->wachtwoord;
 	}
 
+	public function getGewijzigd()
+	{
+		return $this->gewijzigd;
+	}
+
 	public function getGebruikersrechten()
 	{
 		// if gebruikersrechten is an integer, get gebruikersrechten from database
+
 		if (is_int($this->gebruikersrechten)) {
 			$db = new Database("localhost", "root", "", "learnflow", null);
 			$this->gebruikersrechten = $db->getGebruikersrechtByID($this->gebruikersrechten);
@@ -80,10 +87,10 @@ class Docent
 		$this->email = $email;
 	}
 
-	public function setAfkorting($afkorting)
-	{
-		$this->afkorting = $afkorting;
-	}
+	// public function setAfkorting($afkorting)
+	// {
+	// 	$this->afkorting = $afkorting;
+	// }
 
 	public function setWachtwoord($wachtwoord)
 	{
@@ -93,6 +100,11 @@ class Docent
 	public function setGebruikersrechten($gebruikersrechten)
 	{
 		$this->gebruikersrechten = $gebruikersrechten;
+	}
+
+	public function setGewijzigd($gewijzigd)
+	{
+		$this->gewijzigd = $gewijzigd;
 	}
 
 	public function save()

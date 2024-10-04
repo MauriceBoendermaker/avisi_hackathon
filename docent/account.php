@@ -7,7 +7,6 @@ $docenten = $db->getDocenten();
 // ID INT
 // Naam VARCHAR(50)
 // Email VARCHAR(100)
-// Telefoon VARCHAR(20)
 // Wachtwoord VARCHAR(100)
 // FKgebruikersrechtenID INT (foreign key)
 // Gewijzigd TIMESTAMP
@@ -26,7 +25,7 @@ if (isset($_POST['cancel'])) {
 if (isset($_POST['save'])) {
 	if ($_POST['wachtwoord'] == $_POST['wachtwoord2']) {
 		$password = hash('sha256', $_POST['wachtwoord']);
-		$db->setDocent($id, $_POST['naam'], $_POST['email'], $_POST['telefoon'], $password, null);
+		$db->setDocent($id, $_POST['naam'], $_POST['email'], $password, null);
 		home();
 	} else {
 		echo "<div class='alert alert-danger' role='alert'>
@@ -59,10 +58,6 @@ $docent = $db->getDocentByID($id);
 	<div class="form-group mt-2">
 		<label for="adres">Emailadres:</label>
 		<input type='email' class='form-control' id='email' name='email' value='<?php echo $docent->getEmail(); ?>'>
-	</div>
-	<div class="form-group mt-2">
-		<label for="telefoon">Telefoon:</label>
-		<input type='tel' class='form-control' id='telefoon' name='telefoon' value='<?php echo $docent->getTelefoon(); ?>'>
 	</div>
 	<div class="form-group mt-2">
 		<label for="wachtwoord">Wachtwoord:</label>

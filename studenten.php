@@ -10,7 +10,6 @@ $studenten = $db->getStudenten();
 // Naam VARCHAR(50)
 // Adres VARCHAR(50)
 // Email VARCHAR(100)
-// Telefoon VARCHAR(20)
 // Coordinaten VARCHAR(20)
 // Gewijzigd TIMESTAMP
 
@@ -32,12 +31,12 @@ if (isset($_POST['delete']) && isset($_POST['id'])) {
 }
 
 if (isset($_POST['add'])) {
-	$db->setStudent(null, $_POST['naam'], $_POST['adres'], $_POST['email'], $_POST['telefoon'], $_POST['coordinaten']);
+	$db->setStudent(null, $_POST['naam'], $_POST['email']);
 	home();
 }
 
 if (isset($_POST['save'])) {
-	$db->setStudent($_POST['id'], $_POST['naam'], $_POST['adres'], $_POST['email'], $_POST['telefoon'], $_POST['coordinaten']);
+	$db->setStudent($_POST['id'], $_POST['naam'], $_POST['email']);
 	home();
 }
 
@@ -59,20 +58,8 @@ switch ($view) {
 				<input type='text' class='form-control' id='naam' name='naam' value='<?php echo $student->getNaam(); ?>'>
 			</div>
 			<div class="form-group mt-2">
-				<label for="adres">Adres:</label>
-				<input type='text' class='form-control' id='adres' name='adres' value='<?php echo $student->getAdres(); ?>'>
-			</div>
-			<div class="form-group mt-2">
 				<label for="email">Emailadres:</label>
 				<input type='email' class='form-control' id='email' name='email' value='<?php echo $student->getEmail(); ?>'>
-			</div>
-			<div class="form-group mt-2">
-				<label for="telefoon">Mobiele telefoonnummer:</label>
-				<input type='text' class='form-control' id='telefoon' name='telefoon' value='<?php echo $student->getTelefoon(); ?>'>
-			</div>
-			<div class="form-group mt-2">
-				<label for="coordinaten">Coördinaten:</label>
-				<input type='text' class='form-control' id='coordinaten' name='coordinaten' value='<?php echo $student->getCoordinaten(); ?>'>
 			</div>
 			<br />
 			<button type="submit" name="save" class="btn btn-success">Bewaren</button>
@@ -91,20 +78,8 @@ switch ($view) {
 				<input type='text' class='form-control' id='naam' value='<?php echo $student->getNaam(); ?>' disabled>
 			</div>
 			<div class="form-group mt-2">
-				<label for="adres">Adres:</label>
-				<input type='text' class='form-control' id='adres' value='<?php echo $student->getAdres(); ?>' disabled>
-			</div>
-			<div class="form-group mt-2">
 				<label for="email">Emailadres:</label>
 				<input type='email' class='form-control' id='email' value='<?php echo $student->getEmail(); ?>' disabled>
-			</div>
-			<div class="form-group mt-2">
-				<label for="telefoon">Mobiele telefoonnummer:</label>
-				<input type='text' class='form-control' id='telefoon' value='<?php echo $student->getTelefoon(); ?>' disabled>
-			</div>
-			<div class="form-group mt-2">
-				<label for="coordinaten">Coördinaten:</label>
-				<input type='text' class='form-control' id='coordinaten' value='<?php echo $student->getCoordinaten(); ?>' disabled>
 			</div>
 			<br />
 			<button name="delete" type="submit" class="btn btn-danger">Verwijderen</button>
@@ -121,20 +96,8 @@ switch ($view) {
 				<input type='text' class='form-control' id='naam' name='naam' placeholder='Naam'>
 			</div>
 			<div class="form-group mt-2">
-				<label for="adres">Adres:</label>
-				<input type='text' class='form-control' id='adres' name='adres' placeholder='Adres'>
-			</div>
-			<div class="form-group mt-2">
 				<label for="email">Emailadres:</label>
 				<input type='email' class='form-control' id='email' name='email' placeholder='Emailadres'>
-			</div>
-			<div class="form-group mt-2">
-				<label for="telefoon">Mobiele telefoonnummer:</label>
-				<input type='text' class='form-control' id='telefoon' name='telefoon' placeholder='Telefoonnummer'>
-			</div>
-			<div class="form-group mt-2">
-				<label for="coordinaten">Coördinaten:</label>
-				<input type='text' class='form-control' id='coordinaten' name='coordinaten' placeholder='Coordinaten N??.????? E??.?????'>
 			</div>
 			<br />
 			<button type="submit" name="add" class="btn btn-success">Toevoegen</button>
@@ -148,10 +111,7 @@ switch ($view) {
 		<table>
 			<tr>
 				<th>Naam</th>
-				<th>Adres</th>
 				<th>Email</th>
-				<th>Telefoon</th>
-				<th>Coördinaten</th>
 				<th class="d-flex justify-content-center"><a class='mx-1' href='?view=add'><button class='btn btn-primary min-height-0 btn-sm'><i class="fa-solid fa-plus"></i></button></a></th>
 			</tr>
 	<?php
@@ -161,10 +121,7 @@ switch ($view) {
 
 			echo "<tr>";
 			echo "<td>" . $student->getNaam() . "</td>";
-			echo "<td>" . $student->getAdres() . "</td>";
 			echo "<td>" . $student->getEmail() . "</td>";
-			echo "<td>" . $student->getTelefoon() . "</td>";
-			echo "<td><a target='_blank' href='" . $output . "'>" . $student->getCoordinaten() . "</td>";
 			echo "<td class='px-0 d-flex justify-content-center'>
 				<a class='mx-1' href='?id={$student->getID()}&view=edit'><button class='btn btn-primary min-height-0 btn-sm'><i class='fa-solid fa-pen-to-square'></i></button></a>
 				<a class='mx-1' href='?id={$student->getID()}&view=delete'><button class='btn btn-danger min-height-0 btn-sm'><i class='fa-solid fa-trash-can'></i></button></a>

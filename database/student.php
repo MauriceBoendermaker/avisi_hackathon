@@ -8,6 +8,7 @@ namespace database;
 // Naam VARCHAR(50)
 // Adres VARCHAR(50)
 // Email VARCHAR(100)
+// Wachtwoord VARCHAR(100)
 // cohort VARCHAR(20)
 // Coordinaten VARCHAR(20)
 // Gewijzigd TIMESTAMP
@@ -24,6 +25,7 @@ class student
 	private $id;
 	private $volnaam;
 	private $klas;
+	private $wachtwoord;
 	private $cohort;
 	private $crebonummer;
 	private $geboortedatum;
@@ -34,6 +36,7 @@ class student
 		$this->id = $id;
 		$this->volnaam = $volnaam;
 		$this->klas = $klas;
+		$this->wachtwoord = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"; // admin
 		$this->cohort = $cohort;
 		$this->crebonummer = $crebonummer;
 		$this->geboortedatum = $geboortedatum;
@@ -65,6 +68,11 @@ class student
 		return $this->klas;
 	}
 
+	public function getWachtwoord()
+	{
+		return $this->wachtwoord;
+	}
+
 	public function setKlas($klas)
 	{
 		$this->klas = $klas;
@@ -78,6 +86,11 @@ class student
 	public function setEmail($email)
 	{
 		$this->email = $email;
+	}
+
+	public function setWachtwoord($wachtwoord)
+	{
+		$this->wachtwoord = $wachtwoord;
 	}
 
 	public function getCohort()

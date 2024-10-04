@@ -17,13 +17,11 @@ echo "<table>";
 echo "<tr>";
 echo "<th>Naam</th>";
 echo "<th>Email</th>";
-echo "<th>Telefoon</th>";
 echo "</tr>";
 foreach ($gasten as $gast) {
     echo "<tr>";
     echo "<td>" . $gast->getNaam() . "</td>";
     echo "<td>" . $gast->getEmail() . "</td>";
-    echo "<td>" . $gast->getTelefoon() . "</td>";
     echo "</tr>";
 }
 echo "</table>";

@@ -6,7 +6,6 @@
 // ID INT
 // Naam VARCHAR(50)
 // Email VARCHAR(100)
-// Telefoon VARCHAR(20)
 // Wachtwoord VARCHAR(100)
 // Gewijzigd TIMESTAMP
 
@@ -22,6 +21,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
 	// get docent by email
 	$docent = $db->getDocentByEmail($email);
+	$student = $db->getStudentByEmail($email);
 
 	// check if docent exists
 	if ($docent) {
@@ -32,10 +32,22 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 			$_SESSION['id'] = $docent->getID();
 			$_SESSION['naam'] = $docent->getNaam();
 			$_SESSION['email'] = $docent->getEmail();
-			$_SESSION['telefoon'] = $docent->getTelefoon();
 			$_SESSION['rechten'] = $docent->getGebruikersrechten()->getPermissions();
 
 			// redirect to index_page
+			header('Location: ./');
+			exit;
+		} else {
+			$error = true;
+		}
+	} else if ($student) {
+		if ($student->getWachtwoord() == $password) {
+			$_SESSION['loggedin'] = true;
+			$_SESSION['id'] = $student->getID();
+			$_SESSION['naam'] = $student->getNaam();
+			$_SESSION['email'] = $student->getEmail();
+			$_SESSION['rechten'] = 0;
+
 			header('Location: ./');
 			exit;
 		} else {

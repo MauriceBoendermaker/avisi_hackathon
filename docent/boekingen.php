@@ -103,8 +103,8 @@ switch ($view) {
 				<input value="<?php echo $boeking->getDocent()->getNaam(); ?>" type="text" class="form-control" id="docent" disabled>
 			</div>
 			<div class="form-group mt-2">
-				<label for="emailTelefoon">Email/Telefoon:</label>
-				<input value="<?php echo $boeking->getDocent()->getEmail() . " - " . $boeking->getDocent()->getTelefoon(); ?>" type="text" class="form-control" id="emailTelefoon" disabled>
+				<label for="emailTelefoon">Email:</label>
+				<input value="<?php echo $boeking->getDocent()->getEmail(); ?>" type="text" class="form-control" id="emailTelefoon" disabled>
 			</div>
 			<div class="form-group mt-2">
 				<label for="tocht">Tocht:</label>

@@ -6,7 +6,7 @@
 			<div class="col-8">
 				<div class="float-end">
 					<p class="my-0">Ingelogd als:</p>
-					<p class="my-0 text-end fw-light"><?php echo $_SESSION['naam'] . " [" . $_SESSION['email'] . "]" . " (" . ($_SESSION['telefoon']) . ")"; ?></p>
+					<p class="my-0 text-end fw-light"><?php echo $_SESSION['naam'] . " [" . $_SESSION['email'] . "]"; ?></p>
 				</div>
 			</div>
 		</div>

@@ -44,10 +44,10 @@ $router->before('GET|POST|PUT|DELETE', '/(.*)', function($page) {
 		return;
 	}
 	if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
-		header('Location: ' . base_url() . '/login');
+		header('Location: ' . base_url() . 'login');
 		exit;
 	}
-	if (startWith($page, 'docent/') || $page == 'logout' ) return;
+	if (startWith($page, 'docent/') || $page == 'logout') return;
 	if ($_SESSION['rechten']['read'] == false) {
 		header('Location: docent/welkom');
 		exit;

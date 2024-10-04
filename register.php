@@ -21,7 +21,6 @@ include "include/head.php";
 	// ID INT
 	// Naam VARCHAR(50)
 	// Email VARCHAR(100)
-	// Telefoon VARCHAR(20)
 	// Wachtwoord VARCHAR(100)
 	// Gewijzigd TIMESTAMP
 
@@ -44,7 +43,6 @@ include "include/head.php";
 			$_SESSION['id'] = $docent->getID();
 			$_SESSION['naam'] = $docent->getNaam();
 			$_SESSION['email'] = $docent->getEmail();
-			$_SESSION['telefoon'] = $docent->getTelefoon();
 			$_SESSION['rechten'] = $docent->getGebruikersrechten()->getPermissions();
 
 			// redirect to index_page
@@ -97,10 +95,6 @@ include "include/head.php";
 								<div class="form-group mt-2">
 									<label for="wachtwoord2">Bevestig wachtwoord:</label>
 									<input type='password' class='form-control' id='wachtwoord2' name='wachtwoord2' placeholder='Bevestig wachtwoord' value=''>
-								</div>
-								<div class="form-group mt-2">
-									<label for="phone">Telefoonnummer:</label>
-									<input type="text" class="form-control" id="phone" name="phone" placeholder="Telefoonnummer" required>
 								</div>
 								<div class="form-group mt-3">
 									<button name="register" type="submit" class="btn btn-success btn-block">Aanvragen</button>

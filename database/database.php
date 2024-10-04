@@ -170,7 +170,6 @@ class Database
     // Naam VARCHAR(50)
     // Adres VARCHAR(50)
     // Email VARCHAR(100)
-    // Telefoon VARCHAR(20)
     // Coordinaten VARCHAR(20)
     // Gewijzigd TIMESTAMP
     public function getStudenten()
@@ -179,7 +178,7 @@ class Database
         $result = $this->db->query("SELECT * FROM studenten");
         $studenten = array();
         while ($row = $result->fetch_assoc()) {
-            $studenten[] = new Student($row["ID"], $row["Naam"], $row["Adres"], $row["Email"], $row["Telefoon"], $row["Coordinaten"], $row["Gewijzigd"]);
+            $studenten[] = new Student($row["ID"], $row["Naam"], $row["Adres"], $row["Email"], $row["Coordinaten"], $row["Gewijzigd"]);
         }
         return $studenten;
     }
@@ -190,25 +189,25 @@ class Database
         $result = $this->db->query("SELECT * FROM studenten WHERE ID = $id");
         $row = $result->fetch_assoc();
         if (is_null($row)) return null;
-        return new Student($row["ID"], $row["Naam"], $row["Adres"], $row["Email"], $row["Telefoon"], $row["Coordinaten"], $row["Gewijzigd"]);
+        return new Student($row["ID"], $row["Naam"], $row["Adres"], $row["Email"], $row["Coordinaten"], $row["Gewijzigd"]);
     }
 
-    public function setStudent($id, $naam, $adres, $email, $telefoon, $coordinaten, $gewijzigd = null)
+    public function setStudent($id, $naam, $adres, $email, $coordinaten, $gewijzigd = null)
     {
         $this->connect();
         if (is_null($gewijzigd) || empty($gewijzigd))
             $gewijzigd = date("Y-m-d H:i:s");
 
         if (is_null($id)) {
-            $result = $this->db->query("INSERT INTO studenten (Naam, Adres, Email, Telefoon, Coordinaten, Gewijzigd) VALUES ('$naam', '$adres', '$email', '$telefoon', '$coordinaten', '$gewijzigd')");
+            $result = $this->db->query("INSERT INTO studenten (Naam, Adres, Email, Coordinaten, Gewijzigd) VALUES ('$naam', '$adres', '$email', '$coordinaten', '$gewijzigd')");
         } else {
-            $result = $this->db->query("UPDATE studenten SET Naam = '$naam', Adres = '$adres', Email = '$email', Telefoon = '$telefoon', Coordinaten = '$coordinaten', Gewijzigd = '$gewijzigd' WHERE ID = $id");
+            $result = $this->db->query("UPDATE studenten SET Naam = '$naam', Adres = '$adres', Email = '$email', Coordinaten = '$coordinaten', Gewijzigd = '$gewijzigd' WHERE ID = $id");
         }
     }
 
     public function applyStudent($student, $new = false)
     {
-        $this->setStudent($new ? null : $student->getID(), $student->getNaam(), $student->getAdres(), $student->getEmail(), $student->getTelefoon(), $student->getCoordinaten());
+        $this->setStudent($new ? null : $student->getID(), $student->getNaam(), $student->getAdres(), $student->getEmail(), $student->getCoordinaten());
     }
 
     public function deleteStudent($id)
@@ -221,7 +220,6 @@ class Database
     // ID INT
     // Naam VARCHAR(50)
     // Email VARCHAR(100)
-    // Telefoon VARCHAR(20)
     // Wachtwoord VARCHAR(100)
 	// FKgebruikersrechtenID INT (foreign key)
     // Gewijzigd TIMESTAMP
@@ -232,7 +230,7 @@ class Database
         $result = $this->db->query("SELECT * FROM docenten");
         $docenten = array();
         while ($row = $result->fetch_assoc()) {
-            $docenten[] = new Docent($row["ID"], $row["Naam"], $row["Email"], $row["Telefoon"], $row["Wachtwoord"], $this->getGebruikersrechtByID($row["FKgebruikersrechtenID"]), $row["Gewijzigd"]);
+            $docenten[] = new Docent($row["ID"], $row["Naam"], $row["Email"], $row["Wachtwoord"], $this->getGebruikersrechtByID($row["FKgebruikersrechtenID"]), $row["Gewijzigd"]);
         }
         return $docenten;
     }
@@ -243,7 +241,7 @@ class Database
         $result = $this->db->query("SELECT * FROM docenten WHERE ID = $id");
         $row = $result->fetch_assoc();
         if (is_null($row)) return null;
-        return new Docent($row["ID"], $row["Naam"], $row["Email"], $row["Telefoon"], $row["Wachtwoord"], $this->getGebruikersrechtByID($row["FKgebruikersrechtenID"]), $row["Gewijzigd"]);
+        return new Docent($row["ID"], $row["Naam"], $row["Email"], $row["Wachtwoord"], $this->getGebruikersrechtByID($row["FKgebruikersrechtenID"]), $row["Gewijzigd"]);
     }
 
     public function getDocentByEmail($email)
@@ -254,10 +252,23 @@ class Database
 		if ($result->num_rows == 0) {
 			return null;
 		}
-        return new Docent($row["ID"], $row["Naam"], $row["Email"], $row["Telefoon"], $row["Wachtwoord"], $this->getGebruikersrechtByID($row["FKgebruikersrechtenID"]), $row["Gewijzigd"]);
+        return new Docent($row["ID"], $row["Naam"], $row["Email"], $row["Wachtwoord"], $this->getGebruikersrechtByID($row["FKgebruikersrechtenID"]), $row["Gewijzigd"]);
 	}
 
-    public function setDocent($id, $naam, $email, $telefoon, $wachtwoord, $fkGebruikersrechtenID, $gewijzigd = null)
+    public function getStudentByEmail($email)
+	{
+		$this->connect();
+		$result = $this->db->query("SELECT * FROM studenten WHERE Email = '$email'");
+		$row = $result->fetch_assoc();
+		if ($result->num_rows == 0) {
+			return null;
+		}
+
+        // $id, $volnaam, $klas, $cohort, $crebonummer, $geboortedatum
+        return new Student($row["ID"], $row["Naam"], $row["Adres"], $row["Email"], $row["Coordinaten"], $row["Gewijzigd"]);
+	}
+
+    public function setDocent($id, $naam, $email, $wachtwoord, $fkGebruikersrechtenID, $gewijzigd = null)
 	{
 		$this->connect();
 		if (is_null($gewijzigd) || empty($gewijzigd))

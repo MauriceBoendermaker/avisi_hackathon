@@ -122,8 +122,8 @@ switch ($view) {
 				<input value="<?php echo $boeking->getDocent()->getNaam(); ?>" type="text" class="form-control" id="docent" disabled>
 			</div>
 			<div class="form-group mt-2">
-				<label for="emailTelefoon">Email/Telefoon:</label>
-				<input value="<?php echo $boeking->getDocent()->getEmail() . " - " . $boeking->getDocent()->getTelefoon(); ?>" type="text" class="form-control" id="emailTelefoon" disabled>
+				<label for="emailTelefoon">Email:</label>
+				<input value="<?php echo $boeking->getDocent()->getEmail() ?>" type="text" class="form-control" id="emailTelefoon" disabled>
 			</div>
 			<div class="form-group mt-2">
 				<label for="tocht">Tocht:</label>
@@ -147,7 +147,6 @@ switch ($view) {
 				<th>Docentnaam</th>
 				<th>Tocht</th>
 				<th>Email</th>
-				<th>Telefoon</th>
 				<th class="d-flex justify-content-center"><button class="btn btn-primary min-height-0 btn-sm" onClick='window.location.reload();'><i class='fa-solid fa-arrow-rotate-right'></i></button></th>
 			</tr>
 	<?php
@@ -160,7 +159,6 @@ switch ($view) {
 			echo "<td>" . $boeking->getDocent()->getNaam() . "</td>";
 			echo "<td>" . $boeking->getTocht()->getOmschrijving() . "</td>";
 			echo "<td>" . $boeking->getDocent()->getEmail() . "</td>";
-			echo "<td>" . $boeking->getDocent()->getTelefoon() . "</td>";
 			echo "<td class='px-0 d-flex justify-content-center'>
 				<a class='mx-1' href='pauzeplaatsen_beheer?id={$boeking->getID()}'><button class='btn btn-primary min-height-0 btn-sm'><i class='fa-solid fa-pause'></i></button></a>
 				<a class='mx-1' href='overnachtingsplaatsen_beheer?id={$boeking->getID()}'><button class='btn btn-primary min-height-0 btn-sm'><i class='fa-solid fa-bed'></i></button></a>";
