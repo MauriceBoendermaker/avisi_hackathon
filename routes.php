@@ -110,8 +110,8 @@ $router->all('/register', function () {
 	include 'register.php';
 });
 
-$router->all('/restaurants', function () {
-	include 'restaurants.php';
+$router->all('/beheerders', function () {
+	include 'beheerders.php';
 });
 
 $router->all('/statussen', function () {

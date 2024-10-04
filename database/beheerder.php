@@ -2,7 +2,7 @@
 
 
 namespace database;
-    // restaurants
+    // beheerders
     // ID INT
     // Naam VARCHAR(50)
     // Adres VARCHAR(50)
@@ -26,7 +26,7 @@ namespace database;
             $this->id = $id;
             $this->naam = $naam;
             $this->email = $email;
-            $name_parts = explode(" ", $full_name);
+            $name_parts = explode(" ", $naam); // $full_name ??
 
             // Afkorting van docent craften
             $first_name = $name_parts[0];

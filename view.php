@@ -46,7 +46,7 @@ $filter = isset($_GET['f']);
             popupAnchor: [0, -15] // point from which the popup should open relative to the iconAnchor
         })
 
-        let restaurantIcon = L.icon({
+        let beheerderIcon = L.icon({
             iconUrl: 'https://www.svgrepo.com/show/52135/room-service.svg',
             iconSize: [30, 30], // width and height of the image in pixels
             iconAnchor: [15, 15], // point of the icon which will correspond to marker's location
@@ -111,9 +111,9 @@ $filter = isset($_GET['f']);
         function createCustomIcon(feature, latlng) {
             if (feature.properties && feature.properties.marker_symbol) {
                 switch (feature.properties.marker_symbol) {
-                    case "restaurant":
+                    case "beheerder":
                         return L.marker(latlng, {
-                            icon: restaurantIcon
+                            icon: beheerderIcon
                         });
                     case "hostel":
                         return L.marker(latlng, {

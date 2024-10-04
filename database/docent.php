@@ -25,7 +25,7 @@ class Docent
             $this->id = $id;
             $this->naam = $naam;
             $this->email = $email;
-            $name_parts = explode(" ", $full_name);
+            $name_parts = explode(" ", $naam);
 
             // Afkorting van docent craften
             $first_name = $name_parts[0];

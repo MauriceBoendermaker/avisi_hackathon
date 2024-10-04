@@ -11,8 +11,8 @@ switch(sPage) {
     case "herbergen":
         document.getElementById("nav-herbergen").classList.add('active');
         break;
-    case "restaurants":
-        document.getElementById("nav-restaurants").classList.add('active');
+    case "beheerders":
+        document.getElementById("nav-beheerders").classList.add('active');
         break;
     case "tochten":
         document.getElementById("nav-tochten").classList.add('active');

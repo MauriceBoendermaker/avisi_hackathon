@@ -19,7 +19,7 @@
 						<a id="nav-herbergen" class="nav-link" href="herbergen">Herbergen</a>
 					</li>
 					<li class="nav-item">
-						<a id="nav-restaurants" class="nav-link" href="restaurants">Restaurants</a>
+						<a id="nav-beheerders" class="nav-link" href="beheerders">Beheerders</a>
 					</li>
 					<li class="nav-item">
 						<a id="nav-tochten" class="nav-link" href="tochten">Tochten</a>

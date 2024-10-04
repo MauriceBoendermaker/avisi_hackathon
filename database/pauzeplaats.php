@@ -6,21 +6,21 @@ namespace database;
 // pauzeplaatsen
 // ID INT
 // FKboekingenID INT (foreign key)
-// FKrestaurantsID INT (foreign key)
+// FKbeheerdersID INT (foreign key)
 // FKstatussenID INT (foreign key)
 
 class Pauzeplaats
 {
 	private $id;
 	private $boeking;
-	private $restaurant;
+	private $beheerder;
 	private $status;
 
-	public function __construct($id, $boeking, $restaurant, $status)
+	public function __construct($id, $boeking, $beheerder, $status)
 	{
 		$this->id = $id;
 		$this->boeking = $boeking;
-		$this->restaurant = $restaurant;
+		$this->beheerder = $beheerder;
 		$this->status = $status;
 	}
 
@@ -39,9 +39,9 @@ class Pauzeplaats
 		return $this->boeking;
 	}
 
-	public function getRestaurant()
+	public function getBeheerder()
 	{
-		return $this->restaurant;
+		return $this->beheerder;
 	}
 
 	public function getStatus()
@@ -54,9 +54,9 @@ class Pauzeplaats
 		$this->boeking = $boeking;
 	}
 
-	public function setRestaurant($restaurant)
+	public function setBeheerder($beheerder)
 	{
-		$this->restaurant = $restaurant;
+		$this->beheerder = $beheerder;
 	}
 
 	public function setStatus($status)
