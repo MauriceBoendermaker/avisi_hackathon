@@ -12,7 +12,7 @@ $gasten = $db->getDocenten();
 // Telefoon VARCHAR(20)
 // Wachtwoord VARCHAR(100)
 // Gewijzigd TIMESTAMP
-echo "<h3>Gasten</h3>";
+echo "<h3>Docenten</h3>";
 echo "<table>";
 echo "<tr>";
 echo "<th>Naam</th>";

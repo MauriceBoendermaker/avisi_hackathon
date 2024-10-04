@@ -28,12 +28,12 @@ class Docent
             $name_parts = explode(" ", $naam);
 
             // Afkorting van docent craften
-            $first_name = $name_parts[0];
-            $last_name = $name_parts[1];
-            $last_name_part = substr($last_name, 0, 3);
-            $first_name_part = substr($first_name, 0, 2);
+            //$first_name = $name_parts[0];
+            //$last_name = $name_parts[1];
+            //$last_name_part = substr($last_name, 0, 3);
+            //$first_name_part = substr($first_name, 0, 2);
 
-            $this->afkorting = $last_name_part . $first_name_part;
+            $this->afkorting = "AFKort";
             $this->wachtwoord = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"; // $wachtwoord;
             $this->gebruikersrechten = $gebruikersrechten;
         }

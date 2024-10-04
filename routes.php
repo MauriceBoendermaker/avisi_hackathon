@@ -60,7 +60,7 @@ $router->before('GET|POST|PUT|DELETE', '/(.*)', function($page) {
 });
 
 $router->all('/projecten', function () {
-	include 'projecten.php';
+	include 'projectenbeheer.php';
 });
 
 $router->all('/gasten', function () {
@@ -188,7 +188,6 @@ $router->get('api/markers.json', function () {
 	include 'api/markers.php';
 });
 
-// Thunderbirds are go!
 $router->run();
 
 ?>
