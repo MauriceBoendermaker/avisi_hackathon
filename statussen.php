@@ -146,13 +146,12 @@ switch ($view) {
 		break;
 	default:
 	?>
-		<h3>Statussen</h3>
+		<h3>Criteria beheer</h3>
 		<table>
 			<tr>
 				<th>Code</th>
 				<th>Status</th>
 				<th>Verwijderbaar</th>
-				<th>PIN toekennen</th>
 				<th class="d-flex justify-content-center"><a class='mx-1' href='?view=add'><button class='btn btn-primary min-height-0 btn-sm'><i class="fa-solid fa-plus"></i></button></a></th>
 			</tr>
 	<?php

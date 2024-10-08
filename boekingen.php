@@ -64,7 +64,7 @@ switch ($view) {
 			</div>
 			<div class="form-group mt-2">
 				<input type="hidden" name="pinCode" value="<?php echo $project->getPinCode(); ?>">
-				<label for="pincode">PIN code:</label>
+				<label for="pincode">Criteria:</label>
 				<?php
 				if ($project->getPincode() == null) {
 					echo "<input type='text' class='form-control' id='pincode' value='Geen PIN code uitgegeven.' disabled>";
@@ -143,7 +143,7 @@ switch ($view) {
 				<th>Startdatum</th>
 				<th>Einddatum</th>
 				<th>Status</th>
-				<th>Pincode</th>
+				<th>Criteria</th>
 				<th>Docentnaam</th>
 				<th>Tocht</th>
 				<th>Email</th>

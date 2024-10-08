@@ -52,7 +52,7 @@ if (isset($_POST['submit'])) {
         </div>
     </form>
     <div class="col-md-5">
-        <iframe id="view" class="map pb-2" src="../view?RouteName=Altlay"></iframe>
+        <iframe id="view" class="map pb-2" src=""></iframe>
     </div>
     <script>
         $("#tocht").on('change', function() {

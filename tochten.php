@@ -117,11 +117,10 @@ switch ($view) {
 		break;
 	default:
 	?>
-		<h3>Tochten</h3>
+		<h3>Projecten beheer</h3>
 		<table>
 			<tr>
 				<th>Omschrijving</th>
-				<th>Route naam</th>
 				<th>Aantal dagen</th>
 				<th class="d-flex justify-content-center"><a class='mx-1' href='?view=add'><button class='btn btn-primary min-height-0 btn-sm'><i class="fa-solid fa-plus"></i></button></a></th>
 			</tr>

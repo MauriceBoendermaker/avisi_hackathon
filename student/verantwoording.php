@@ -1,97 +1,61 @@
 <?php include "./include/nav_student.php"; ?>
+
 <?php
+// Database connection
 $db = new database\Database($db_host, $db_user, $db_pass, $db_name, $db_port);
-$studenten = $db->getStudenten();
 
-// studenten
-// ID INT
-// Naam VARCHAR(50)
-// Email VARCHAR(100)
-// Wachtwoord VARCHAR(100)
-// FKgebruikersrechtenID INT (foreign key)
-// Gewijzigd TIMESTAMP
+// Get criteria
+$criteriaList = $db->getCriteria();
 
-$id = -1;
-$view = null;
-
-
+// Get student ID from session
 $id = $_SESSION['id'];
+$studentID = $id;
 
-
-if (isset($_POST['cancel'])) {
-	home();
+if (isset($_POST['save_verantwoording'])) {
+    $criteriumID = $_POST['criterium_id'];
+    $verantwoording = $_POST['verantwoording'];
+    // Save the "Verantwoording" for the criterion
+    // $db->saveVerantwoording($criteriumID, $verantwoording, $studentID);
+    echo "<div class='alert alert-success' role='alert'>Verantwoording opgeslagen.</div>";
 }
-
-if (isset($_POST['save'])) {
-	if ($_POST['wachtwoord'] == $_POST['wachtwoord2']) {
-		$password = hash('sha256', $_POST['wachtwoord']);
-		$db->setDocent($id, $_POST['naam'], $_POST['email'], $password, null);
-		home();
-	} else {
-		echo "<div class='alert alert-danger' role='alert'>
-				<i class='fa fa-exclamation-triangle' aria-hidden='true'></i>
-				<span class='sr-only'>Error:</span>
-				Wachtwoorden komen niet overeen.
-			</div>";
-	}
-}
-
-if (isset($_POST['delete']) && isset($id)) {
-	$db->deleteDocent($id);
-	session_destroy();
-	home();
-}
-
-function home()
-{
-	header('Location: projecten');
-	exit();
-}
-$docent = $db->getDocentByID($id);
 ?>
-<h3>Mijn account wijzigen</h3>
-<form action="" method="post">
-	<div class="form-group mt-2">
-		<label for="naam">Naam:</label>
-		<input type='text' class='form-control' id='naam' name='naam' value='<?php echo $docent->getNaam(); ?>'>
-	</div>
-	<div class="form-group mt-2">
-		<label for="adres">Emailadres:</label>
-		<input type='email' class='form-control' id='email' name='email' value='<?php echo $docent->getEmail(); ?>'>
-	</div>
-	<div class="form-group mt-2">
-		<label for="wachtwoord">Wachtwoord:</label>
-		<input type='password' class='form-control' id='wachtwoord' name='wachtwoord' value=''>
-	</div>
-	<div class="form-group mt-2">
-		<label for="wachtwoord2">Bevestig wachtwoord:</label>
-		<input type='password' class='form-control' id='wachtwoord2' name='wachtwoord2' value=''>
-	</div>
-	<br />
-	<div style="width: fit-content;">
-		<button type="submit" name="save" class="btn btn-success float-start">Bewaren</button>
-		<button type="submit" name="cancel" class="btn btn-primary float-end">Annuleren</button>
-		<br />
-		<button type="button" data-toggle="modal" data-target="#deleteModal" class="btn btn-danger mt-4 mb-3">Verwijder mijn account</button>
-	</div>
-</form>
-<div class="modal" id="deleteModal" tabindex="-1" role="dialog">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Verwijder account</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<p>Weet u zeker dat u uw account wilt verwijderen?</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary float-start" data-dismiss="modal">Annuleren</button>
-				<form target="verantwoording.php" method="post"><button type="submit" name="delete" class="btn btn-danger float-end">Verwijder</button></form>
-			</div>
-		</div>
-	</div>
-</div>
+
+<h3>Criteria</h3>
+<?php foreach ($criteriaList as $criterium): ?>
+    <div class="criterium-item mb-3">
+        <a href="#" data-bs-toggle="modal" data-bs-target="#modal-<?php echo $criterium->getID(); ?>">
+            <?php echo $criterium->getBeschrijving(); ?>
+        </a>
+    </div>
+<?php endforeach; ?>
+
+<!-- Modals -->
+<?php foreach ($criteriaList as $criterium): ?>
+    <div class="modal fade" id="modal-<?php echo $criterium->getID(); ?>" tabindex="-1" aria-labelledby="modalLabel-<?php echo $criterium->getID(); ?>" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="" method="post">
+                <input type="hidden" name="criterium_id" value="<?php echo $criterium->getID(); ?>">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel-<?php echo $criterium->getID(); ?>"><?php echo $criterium->getBeschrijving(); ?></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Sluiten"></button>
+                    </div>
+                    <!-- Body -->
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="verantwoording-<?php echo $criterium->getID(); ?>">Verantwoording</label>
+                            <textarea class="form-control" id="verantwoording-<?php echo $criterium->getID(); ?>" name="verantwoording" placeholder="Lorem Ipsum"></textarea>
+                        </div>
+                    </div>
+                    <!-- Footer -->
+                    <div class="modal-footer">
+                        <button type="submit" name="save_verantwoording" class="btn btn-primary">Opslaan</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sluiten</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+<?php endforeach; ?>
+
 <?php include "./include/footer.php"; ?>

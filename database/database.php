@@ -2,6 +2,9 @@
 
 namespace database;
 
+error_reporting(E_ALL);
+ini_set('display_errors', 'Off');
+
 require_once 'projecten.php';
 require_once 'student.php';
 require_once 'docent.php';
@@ -523,10 +526,10 @@ class Database
     public function getStatussen()
     {
         $this->connect();
-        $result = $this->db->query("SELECT * FROM statussen");
+        $result = $this->db->query("SELECT * FROM criteria");
         $statussen = array();
         while ($row = $result->fetch_assoc()) {
-            $statussen[] = new Status($row["ID"], $row["StatusCode"], $row["Status"], boolval($row["Verwijderbaar"]), boolval($row["PINtoekennen"]));
+            $statussen[] = new Criterium($row["ID"], $row["StatusCode"], $row["Status"], boolval($row["Verwijderbaar"]), boolval($row["PINtoekennen"]));
         }
         return $statussen;
     }
@@ -534,31 +537,31 @@ class Database
     public function getStatusByID($id)
     {
         $this->connect();
-        $result = $this->db->query("SELECT * FROM statussen WHERE ID = $id");
+        $result = $this->db->query("SELECT * FROM criteria WHERE ID = $id");
         $row = $result->fetch_assoc();
         if (is_null($row)) return null;
-        return new Status($row["ID"], $row["StatusCode"], $row["Status"], boolval($row["Verwijderbaar"]), boolval($row["PINtoekennen"]));
+        return new Criterium($row["ID"], $row["Beschrijving"]);
     }
 
-    public function setStatus($id, $statusCode, $status, $verwijderbaar, $pintoekennen)
-    {
-        $this->connect();
-        if (is_null($id)) {
-            $result = $this->db->query("INSERT INTO statussen (statusCode, Status, Verwijderbaar, PINtoekennen) VALUES ('$statusCode', '$status', '$verwijderbaar', '$pintoekennen')");
-        } else {
-            $result = $this->db->query("UPDATE statussen SET statusCode = '$statusCode', Status = '$status', Verwijderbaar = '$verwijderbaar', PINtoekennen = '$pintoekennen' WHERE ID = $id");
-        }
-    }
+//    public function setStatus($id, $statusCode, $status, $verwijderbaar, $pintoekennen)
+//    {
+//        $this->connect();
+//        if (is_null($id)) {
+//            $result = $this->db->query("INSERT INTO criteria (statusCode, Status, Verwijderbaar, PINtoekennen) VALUES ('$statusCode', '$status', '$verwijderbaar', '$pintoekennen')");
+//        } else {
+//            $result = $this->db->query("UPDATE criteria SET statusCode = '$statusCode', Status = '$status', Verwijderbaar = '$verwijderbaar', PINtoekennen = '$pintoekennen' WHERE ID = $id");
+//        }
+//    }
 
-    public function applyStatus($status, $new = false)
-    {
-        $this->setStatus($new ? null : $status->getID(), $status->getStatusCode(), $status->getStatus(), $status->getVerwijderbaar(), $status->getPINtoekennen());
-    }
+//    public function applyStatus($status, $new = false)
+//    {
+//        $this->setStatus($new ? null : $status->getID(), $status->getStatusCode(), $status->getStatus(), $status->getVerwijderbaar(), $status->getPINtoekennen());
+//    }
 
     public function deleteStatus($id)
     {
         $this->connect();
-        $result = $this->db->query("DELETE FROM statussen WHERE ID = $id");
+        $result = $this->db->query("DELETE FROM criteria WHERE ID = $id");
     }
 
     // criteria

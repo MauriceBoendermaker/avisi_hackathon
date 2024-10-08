@@ -60,7 +60,7 @@ $router->before('GET|POST|PUT|DELETE', '/(.*)', function($page) {
 });
 
 $router->all('/projecten', function () {
-	include 'projectenbeheer.php';
+	include 'database/projecten.php';
 });
 
 $router->all('/gasten', function () {

@@ -72,7 +72,7 @@ switch ($view) {
 				<select name="tochtID" class="form-select" aria-label="Select tocht">
 					<?php foreach ($db->getCriteria() as $criterium) { ?>
 						<option value="
-								<?php echo $criterium->getID(); ?>" <?php if ($criterium->getID() == $project->getCriteria()->getID()) echo "selected"; ?>>
+								<?php echo $criterium->getID(); ?>" <?php if ($criterium->getID() == $project->getCriterium()->getID()) echo "selected"; ?>>
 							<?php echo $criterium->getBeschrijving(); ?>
 						</option>
 					<?php } ?>
@@ -133,26 +133,16 @@ switch ($view) {
 				<tr>
 					<th>Startdatum</th>
 					<th>Einddatum</th>
-					<th>Pincode</th>
-					<th>Tocht</th>
-					<th>Status</th>
-					<th>Bijwerken</th>
+					<th>Criteria</th>
+					<th>Aanpassen</th>
 				</tr>
 			<?php
 			foreach ($projecten as $project) {
 				echo "<tr>";
 				echo "<td>" . $project->getStartdatum() . "</td>";
 				echo "<td>" . date('Y-m-d', strtotime($project->getStartdatum())) . "</td>";
-				if ($project->getStatus()->getStatusCode() == 20) {
-					if (!is_null($project->getPINCode())) {
-						echo "<td><a class='btn btn-primary min-height-0 btn-sm' href='../view?RouteName=". $project->getCriterium()->getRoute() . "&PinCode=" . $project->getTracker()->getID() . "," .  $project->getPINCode() . "' target='_blank'>" . str_pad($project->getPINCode(), 4, '0', STR_PAD_LEFT) . "</a>" .
-							"<a class='btn btn-danger min-height-0 btn-sm' href='?reset=".$project->getID()."'><i class='fa-solid fa-trash-can fa-lg'></i></a></td>";
-					} else {
-						echo "<td>" . "<a class='btn btn-primary min-height-0 btn-sm' href='?setPin=" . $project->getID() . "'>PIN Code aanvragen</a>" . "</td>";
-					}
-				} else echo "<td><i>Geen Pincode<i></td>";
+
 				echo "<td>" . $project->getCriterium()->getBeschrijving() . "</td>";
-				echo "<td>" . $project->getStatus()->getStatus() . "</td>";
 				echo "<td class='px-0 d-flex justify-content-center'>
 					<a class='mx-1' href='?id={$project->getID()}&view=edit'><button class='btn btn-primary min-height-0 btn-sm'><i class='fa-solid fa-pen-to-square'></i></button></a>
 					<a class='mx-1' href='?id={$project->getID()}&view=delete'><button class='btn btn-danger min-height-0 btn-sm'><i class='fa-solid fa-trash-can'></i></button></a>
@@ -177,7 +167,7 @@ if (isset($_GET['setPin'])) {
 					<div class="modal-content">
 						<div class="modal-header">
 							<h5 class="modal-title" id="exampleModalLabel">Zet PIN Code</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<form action="" method="POST">
 							<div class="modal-body">
@@ -188,7 +178,7 @@ if (isset($_GET['setPin'])) {
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 								<button type="submit" name="setPin" class="btn btn-primary">Save changes</button>
 							</div>
 						</form>
